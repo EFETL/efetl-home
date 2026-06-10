@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>影音教學 ｜ 全民英語補習班</title>
+<style>
+  :root{
+    --ink:#16233d;--ink-soft:#5b6b86;--blue:#1f56e0;--blue-deep:#143fb0;--sky:#5b9bff;
+    --red:#ff4757;--yellow:#ffce2e;--yellow-deep:#f6b400;--mint:#21d4a8;
+    --bg:#ffffff;--bg-soft:#eef4ff;--line:#e3ecfa;--radius:20px;--shadow:0 20px 55px -22px rgba(31,86,224,.45);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+  header{position:fixed;top:0;left:0;right:0;z-index:50;backdrop-filter:saturate(180%) blur(12px);background:rgba(255,255,255,.85);border-bottom:1px solid var(--line)}
+  .nav{max-width:1180px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:19px;text-decoration:none;color:var(--ink)}
+  .brand img{width:48px;height:48px;object-fit:contain;flex:none}
+  .brand small{display:block;font-size:11px;font-weight:600;color:var(--blue);letter-spacing:2.5px}
+  nav ul{list-style:none;display:flex;gap:26px;align-items:center}
+  nav a{text-decoration:none;color:var(--ink);font-size:15px;font-weight:700;transition:.2s;white-space:nowrap}
+  nav a:hover,nav a.on{color:var(--blue)}
+  .nav-right{display:flex;align-items:center;gap:14px}
+  .lang{display:flex;border:1.5px solid var(--line);border-radius:999px;overflow:hidden;font-size:13px;font-weight:800}
+  .lang button{border:none;background:transparent;padding:7px 14px;cursor:pointer;color:var(--ink-soft);transition:.2s}
+  .lang button.on{background:var(--blue);color:#fff}
+  .btn{display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;font-weight:800;font-size:15px;border-radius:999px;padding:12px 22px;text-decoration:none;transition:transform .15s,box-shadow .2s}
+  .btn-cta{background:var(--yellow);color:#3a2c00;box-shadow:0 12px 30px -10px rgba(246,180,0,.85)}
+  .btn-cta:hover{transform:translateY(-2px) rotate(-1deg)}
+  .menu-toggle{display:none;background:none;border:none;font-size:26px;cursor:pointer;color:var(--ink)}
+
+  .page-hero{padding:140px 24px 50px;text-align:center;background:radial-gradient(800px 400px at 80% -20%,rgba(91,155,255,.25),transparent 60%),radial-gradient(600px 400px at 0% 120%,rgba(255,206,46,.22),transparent 60%),var(--bg-soft)}
+  .kicker{display:inline-block;font-size:14px;font-weight:900;letter-spacing:2px;color:var(--blue);background:#fff;border:1.5px solid var(--line);padding:6px 16px;border-radius:999px;margin-bottom:16px}
+  .page-hero h1{font-size:clamp(30px,4.2vw,46px);font-weight:900;letter-spacing:-.5px;margin-bottom:14px}
+  .page-hero h1 .hl{color:var(--blue)}
+  .page-hero p{color:var(--ink-soft);font-size:16.5px;max-width:560px;margin:0 auto}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+  .vid-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:54px 0 80px}
+  .vid{cursor:pointer;background:#fff;border:1.5px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:transform .2s,box-shadow .2s}
+  .vid:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+  .thumb{aspect-ratio:16/9;position:relative;display:grid;place-items:center;overflow:hidden}
+  .thumb .emoji{font-size:62px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.18));z-index:1}
+  .thumb::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.10) 0 18px,transparent 18px 36px)}
+  .thumb .peng{position:absolute;width:30%;bottom:-6px;right:4px;transform:rotate(-7deg);filter:drop-shadow(0 5px 8px rgba(0,0,0,.25));z-index:1}
+  .thumb .play{position:absolute;width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;z-index:2;box-shadow:0 8px 20px rgba(0,0,0,.25);transition:.2s}
+  .vid:hover .play{transform:scale(1.12)}
+  .thumb .play::after{content:"";border-left:20px solid var(--red);border-top:12px solid transparent;border-bottom:12px solid transparent;margin-left:5px}
+  .t-blue{background:linear-gradient(140deg,var(--blue),var(--sky))}
+  .t-mint{background:linear-gradient(140deg,var(--mint),#7be3c6)}
+  .t-red{background:linear-gradient(140deg,var(--red),#ff8a93)}
+  .t-yellow{background:linear-gradient(140deg,var(--yellow-deep),var(--yellow))}
+  .t-sky{background:linear-gradient(140deg,#3b82f6,#93c5fd)}
+  .t-grape{background:linear-gradient(140deg,#7c5cff,#b39bff)}
+  .vid-body{padding:18px 20px}
+  .vid-body .yt{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:900;color:#ff0000;margin-bottom:8px}
+  .vid-body h3{font-size:18px;font-weight:900;margin-bottom:5px}
+  .vid-body p{font-size:13.5px;color:var(--ink-soft)}
+
+  /* 站內播放器彈窗 */
+  .modal{position:fixed;inset:0;z-index:100;background:rgba(11,18,32,.82);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:24px}
+  .modal.open{display:flex}
+  .modal-box{width:min(960px,100%);background:#000;border-radius:18px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6);position:relative}
+  .modal-top{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:#0e1626;color:#fff}
+  .modal-top b{font-size:16px;font-weight:800}
+  .modal-close{background:rgba(255,255,255,.12);border:none;color:#fff;width:36px;height:36px;border-radius:50%;font-size:20px;cursor:pointer;transition:.2s}
+  .modal-close:hover{background:var(--red)}
+  .modal-video{aspect-ratio:16/9;width:100%}
+  .modal-video iframe{width:100%;height:100%;border:0;display:block}
+
+  footer{background:var(--ink);color:#cdd7ea;padding:40px 24px 30px;text-align:center}
+  footer .brand{justify-content:center;color:#fff;margin-bottom:10px}.footer-mark{color:var(--sky)}
+  footer p{font-size:13.5px;opacity:.8}
+
+  @media(max-width:920px){nav ul{display:none}.menu-toggle{display:block}.vid-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.nav-right .btn{display:none}.vid-grid{grid-template-columns:1fr}}
+
+  [data-en]{display:none}
+  body.en [data-zh]{display:none}
+  body.en [data-en]{display:revert}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a class="brand" href="index.html"><img src="logo.png" alt="logo"><span>全民英語補習班<small>EFETL ‧ TIANWEI</small></span></a>
+    <nav>
+      <ul>
+        <li><a href="index.html#about"><span data-zh>創班精神</span><span data-en>About</span></a></li>
+        <li><a href="index.html#classes"><span data-zh>招生班別</span><span data-en>Classes</span></a></li>
+        <li><a href="index.html#geft"><span data-zh>英檢專區</span><span data-en>GEPT</span></a></li>
+        <li><a href="videos.html" class="on"><span data-zh>影音教學</span><span data-en>Videos</span></a></li>
+        <li><a href="index.html#contact"><span data-zh>聯絡我們</span><span data-en>Contact</span></a></li>
+      </ul>
+    </nav>
+    <div class="nav-right">
+      <div class="lang"><button class="on" onclick="setLang('zh',this)">中</button><button onclick="setLang('en',this)">EN</button></div>
+      <a href="index.html#contact" class="btn btn-cta"><span data-zh>📞 預約試聽</span><span data-en>📞 Book a Trial</span></a>
+    </div>
+    <button class="menu-toggle">☰</button>
+  </div>
+</header>
+
+<section class="page-hero">
+  <span class="kicker" data-zh>影音教學</span><span class="kicker" data-en>VIDEOS</span>
+  <h1><span data-zh>線上<span class="hl">影音學習</span>，隨時隨地學英文</span><span data-en>Learn anytime with our <span class="hl">video lessons</span></span></h1>
+  <p><span data-zh>點擊任一主題，直接在這裡觀看，不用離開網站。</span><span data-en>Tap any topic and watch right here — no need to leave the site.</span></p>
+</section>
+
+<div class="wrap">
+  <div class="vid-grid">
+    <a class="vid" href="playlist.html?id=daily" style="text-decoration:none;color:inherit">
+      <div class="thumb t-blue"><span class="emoji">📖✨</span><img class="peng" src="logo.png" alt=""><span class="play"></span></div>
+      <div class="vid-body"><span class="yt" style="color:var(--blue)">📋 <span data-zh>影片清單 ‧ 52 部</span><span data-en>52 videos</span></span><h3><span data-zh>每日一字</span><span data-en>Word of the Day</span></h3><p><span data-zh>每天一個單字，累積實力不間斷</span><span data-en>One new word every day</span></p></div>
+    </a>
+    <a class="vid" href="playlist.html?id=garden" style="text-decoration:none;color:inherit">
+      <div class="thumb t-mint"><span class="emoji">🌷🌱</span><img class="peng" src="logo.png" alt=""><span class="play"></span></div>
+      <div class="vid-body"><span class="yt" style="color:var(--blue)">📋 <span data-zh>影片清單 ‧ 2 部</span><span data-en>2 videos</span></span><h3><span data-zh>園藝雙語</span><span data-en>Gardening Bilingual</span></h3><p><span data-zh>邊認識植物，邊學中英雙語</span><span data-en>Learn English through gardening</span></p></div>
+    </a>
+    <a class="vid" href="playlist.html?id=anniv" style="text-decoration:none;color:inherit">
+      <div class="thumb t-red"><span class="emoji">🎉🎂</span><img class="peng" src="logo.png" alt=""><span class="play"></span></div>
+      <div class="vid-body"><span class="yt" style="color:var(--blue)">📋 <span data-zh>影片清單 ‧ 10 部</span><span data-en>10 videos</span></span><h3><span data-zh>全民20週年慶</span><span data-en>20th Anniversary</span></h3><p><span data-zh>陪伴在地家庭二十年的珍貴回憶</span><span data-en>20 years of memories</span></p></div>
+    </a>
+    <a class="vid" href="playlist.html?id=study" style="text-decoration:none;color:inherit">
+      <div class="thumb t-yellow"><span class="emoji">🚀💡</span><img class="peng" src="logo.png" alt=""><span class="play"></span></div>
+      <div class="vid-body"><span class="yt" style="color:var(--blue)">📋 <span data-zh>影片清單 ‧ 12 部</span><span data-en>12 videos</span></span><h3><span data-zh>如何提高學習效率</span><span data-en>Study Smarter</span></h3><p><span data-zh>實用讀書方法，事半功倍</span><span data-en>Practical study tips</span></p></div>
+    </a>
+    <a class="vid" href="gept-basic-oral.html" style="text-decoration:none;color:inherit">
+      <div class="thumb t-sky"><span class="emoji">🗣️🅰️</span><img class="peng" src="logo.png" alt=""><span class="play"></span></div>
+      <div class="vid-body"><span class="yt" style="color:var(--blue)">📋 <span data-zh>題目清單 ‧ 119 題</span><span data-en>119 questions</span></span><h3><span data-zh>全民英檢初級口說</span><span data-en>GEPT Elementary Speaking</span></h3><p><span data-zh>逐題影片 + 範例答案，點入觀看</span><span data-en>Per-question video + model answers</span></p></div>
+    </a>
+    <a class="vid" href="gept-medium-oral.html" style="text-decoration:none;color:inherit">
+      <div class="thumb t-grape"><span class="emoji">🎤🅱️</span><img class="peng" src="logo.png" alt=""><span class="play"></span></div>
+      <div class="vid-body"><span class="yt" style="color:var(--blue)">📋 <span data-zh>題目清單 ‧ 67 題</span><span data-en>67 questions</span></span><h3><span data-zh>全民英檢中級口說</span><span data-en>GEPT Intermediate Speaking</span></h3><p><span data-zh>逐題影片 + 範例答案，點入觀看</span><span data-en>Per-question video + model answers</span></p></div>
+    </a>
+  </div>
+</div>
+
+<!-- 站內播放器 -->
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <div class="modal-top"><b id="modalTitle"></b><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-video"><iframe id="player" src="" title="影音播放" allow="accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div>
+  </div>
+</div>
+
+<footer>
+  <div class="brand" style="display:inline-flex;align-items:center;gap:12px"><img src="logo.png" width="40" height="40" alt="logo" style="background:#fff;border-radius:10px;padding:3px"><span>全民英語補習班<small style="display:block;font-size:11px" class="footer-mark">EFETL ‧ TIANWEI</small></span></div>
+  <p><span data-zh>彰化縣田尾鄉公所路159號（田尾圖書館） ‧ 04-8833604 ‧ LINE @bmp3057d<br>© 2026 全民英語補習班</span><span data-en>No.159, Gongsuo Rd, Tianwei, Changhua ‧ 04-8833604 ‧ LINE @bmp3057d<br>© 2026 EFETL English</span></p>
+</footer>
+
+<script>
+  function setLang(lang,btn){
+    document.body.classList.toggle('en',lang==='en');
+    document.documentElement.lang=lang==='en'?'en':'zh-Hant';
+    document.querySelectorAll('.lang button').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+  }
+  function play(listId,title){
+    document.getElementById('modalTitle').textContent=title;
+    document.getElementById('player').src='https://www.youtube.com/embed/videoseries?list='+listId+'&rel=0&autoplay=1';
+    document.getElementById('modal').classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+  function closeModal(){
+    document.getElementById('modal').classList.remove('open');
+    document.getElementById('player').src='';
+    document.body.style.overflow='';
+  }
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+</script>
+</body>
+</html>

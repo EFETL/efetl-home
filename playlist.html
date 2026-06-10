@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>影音教學 ｜ 全民英語補習班</title>
+<style>
+  :root{
+    --ink:#16233d;--ink-soft:#5b6b86;--blue:#1f56e0;--blue-deep:#143fb0;--sky:#5b9bff;
+    --red:#ff4757;--yellow:#ffce2e;--yellow-deep:#f6b400;--mint:#21d4a8;
+    --bg:#ffffff;--bg-soft:#eef4ff;--line:#e3ecfa;--radius:18px;--shadow:0 20px 55px -22px rgba(31,86,224,.45);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+  header{position:fixed;top:0;left:0;right:0;z-index:50;backdrop-filter:saturate(180%) blur(12px);background:rgba(255,255,255,.9);border-bottom:1px solid var(--line)}
+  .nav{max-width:1100px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:18px;text-decoration:none;color:var(--ink)}
+  .brand img{width:44px;height:44px;object-fit:contain;flex:none}
+  .brand small{display:block;font-size:11px;font-weight:600;color:var(--blue);letter-spacing:2.5px}
+  .nav-right{display:flex;align-items:center;gap:12px}
+  .lang{display:flex;border:1.5px solid var(--line);border-radius:999px;overflow:hidden;font-size:13px;font-weight:800}
+  .lang button{border:none;background:transparent;padding:7px 14px;cursor:pointer;color:var(--ink-soft)}
+  .lang button.on{background:var(--blue);color:#fff}
+  .nav-link{text-decoration:none;color:var(--ink);font-weight:700;font-size:14.5px}
+  .nav-link:hover{color:var(--blue)}
+
+  .wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+  .head{padding:128px 24px 30px;text-align:center;background:radial-gradient(700px 360px at 80% -20%,rgba(91,155,255,.22),transparent 60%),var(--bg-soft)}
+  .crumb{font-size:13.5px;color:var(--ink-soft);margin-bottom:14px}
+  .crumb a{color:var(--blue);text-decoration:none;font-weight:700}
+  .kicker{display:inline-block;font-size:13px;font-weight:900;letter-spacing:2px;color:var(--blue);background:#fff;border:1.5px solid var(--line);padding:5px 14px;border-radius:999px;margin-bottom:14px}
+  .head h1{font-size:clamp(24px,3.4vw,36px);font-weight:900;letter-spacing:-.5px}
+  .head p{color:var(--ink-soft);margin-top:8px}
+
+  .qlist{padding:34px 0 80px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .qrow{display:flex;align-items:center;gap:14px;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;text-align:left;transition:.18s;width:100%;font-family:inherit}
+  .qrow:hover{border-color:var(--blue);transform:translateY(-2px);box-shadow:var(--shadow)}
+  .qrow .num{flex:none;width:34px;height:34px;border-radius:10px;background:var(--bg-soft);color:var(--blue);font-weight:900;display:grid;place-items:center;font-size:15px}
+  .qrow .qt{font-size:15px;font-weight:700;color:var(--ink);flex:1}
+  .qrow::after{content:"▶";font-size:11px;color:var(--red);margin-left:auto}
+
+  .detail{display:none;padding:120px 0 80px}
+  .detail.show{display:block}
+  .qlist.hide{display:none}.head.hide{display:none}
+  .back{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:10px 18px;font-weight:800;font-size:14.5px;cursor:pointer;color:var(--blue-deep);margin-bottom:22px;font-family:inherit}
+  .back:hover{border-color:var(--blue)}
+  .detail h2{font-size:clamp(20px,3vw,28px);font-weight:900;letter-spacing:-.4px;margin-bottom:6px}
+  .detail .qno{color:var(--blue);font-weight:900}
+  .player{aspect-ratio:16/9;width:100%;border-radius:16px;overflow:hidden;background:#000;margin:22px 0 8px;box-shadow:var(--shadow)}
+  .player iframe{width:100%;height:100%;border:0;display:block}
+  .player-note{font-size:13px;color:var(--ink-soft)}
+
+  footer{background:var(--ink);color:#cdd7ea;padding:36px 24px;text-align:center}
+  footer p{font-size:13px;opacity:.8}
+  @media(max-width:760px){.qlist{grid-template-columns:1fr}}
+  [data-en]{display:none}
+  body.en [data-zh]{display:none}
+  body.en [data-en]{display:revert}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a class="brand" href="index.html"><img src="logo.png" alt="logo"><span>全民英語補習班<small>EFETL ‧ TIANWEI</small></span></a>
+    <div class="nav-right">
+      <a class="nav-link" href="videos.html"><span data-zh>← 回影音教學</span><span data-en>← Videos</span></a>
+      <div class="lang"><button class="on" onclick="setLang('zh',this)">中</button><button onclick="setLang('en',this)">EN</button></div>
+    </div>
+  </div>
+</header>
+
+<section class="head" id="head">
+  <div class="crumb"><a href="index.html"><span data-zh>首頁</span><span data-en>Home</span></a> ›
+    <a href="videos.html"><span data-zh>影音教學</span><span data-en>Videos</span></a> › <span id="cZh"></span></div>
+  <span class="kicker">▶ YOUTUBE</span>
+  <h1 id="hTitle"></h1>
+  <p><span data-zh>點選任一支影片，直接在這裡觀看。</span><span data-en>Tap any video to watch right here.</span></p>
+</section>
+<div class="wrap"><div class="qlist" id="qlist"></div></div>
+
+<section class="detail" id="detail">
+  <div class="wrap">
+    <button class="back" onclick="showList()"><span data-zh>← 回影片清單</span><span data-en>← Back to list</span></button>
+    <div class="crumb"><a href="videos.html"><span data-zh>影音教學</span><span data-en>Videos</span></a> › <span id="cZh2"></span></div>
+    <h2><span class="qno" id="dNo"></span> <span id="dTitle"></span></h2>
+    <div class="player"><iframe id="dPlayer" src="" title="影片" allow="accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div>
+    <p class="player-note"><span data-zh>※ 影片來自全民英語 YouTube 官方頻道。</span><span data-en>※ From our official YouTube channel.</span></p>
+  </div>
+</section>
+
+<footer>
+  <p><span data-zh>彰化縣田尾鄉公所路159號（田尾圖書館） ‧ 04-8833604 ‧ LINE @bmp3057d<br>© 2026 全民英語補習班</span><span data-en>No.159, Gongsuo Rd, Tianwei, Changhua ‧ 04-8833604<br>© 2026 EFETL English</span></p>
+</footer>
+
+<script>
+  const CATS = {
+    daily:{zh:"每日一字",en:"Word of the Day",pl:"PLEEUvULVN3pyeAH9vI2yWA6GEmhYXKb3a",items:[
+      {n:1,title:"元宵燈籠－進階版",video:"-wAEOB4LDd4"},
+      {n:2,title:"廟宇 初階版",video:"69W5uqBeQUw"},
+      {n:3,title:"燒金紙-初階篇",video:"6y6LChRoj6k"},
+      {n:4,title:"燒金紙-進階篇",video:"9tTLsfCpCno"},
+      {n:5,title:"油炸食物-進階版",video:"AwwizGXTI0w"},
+      {n:6,title:"溜滑梯-進階版",video:"FHWb1rbKOJg"},
+      {n:7,title:"月亮-初階版",video:"H49Tja3shv0"},
+      {n:8,title:"月亮-進階篇",video:"HC3YjxERuZ4"},
+      {n:9,title:"汽車修護",video:"KhNGwIjvXY8"},
+      {n:10,title:"廟宇-進階版",video:"SHcWOjb_-Qg"},
+      {n:11,title:"健走-進階篇",video:"SUfy-xbn_hI"},
+      {n:12,title:"溜滑梯-初階版",video:"X6oHQ8rL5UQ"},
+      {n:13,title:"汽車修護-初階篇",video:"b1H8acGED08"},
+      {n:14,title:"元宵燈籠-初階篇",video:"e3DuG1re4hE"},
+      {n:15,title:"地震三步驟 進階版",video:"wH9Am3UE19Q"},
+      {n:16,title:"Word of the Day: balance (n) 平衡",video:"9DmG4xwGhcU"},
+      {n:17,title:"Word of the Day mop 拖地",video:"8CJVaYf8R1Y"},
+      {n:18,title:"Word of the Day exercise 運動",video:"adsoGAUX7SM"},
+      {n:19,title:"Word of the Day: High Speed Rail 高鐵",video:"JJW7GqbO6dM"},
+      {n:20,title:"Word of the Day: Christmas (n) 聖誕節",video:"Ym__GAlMO8Y"},
+      {n:21,title:"Word of the Day: signal (n) 信號",video:"rOKw0xaHVV8"},
+      {n:22,title:"Word of the Day: microwave (n) 微波爐",video:"APBiBipeAt8"},
+      {n:23,title:"Word of the Day: car wax 汽車蠟",video:"mKYpfiRCC34"},
+      {n:24,title:"Word of the Day: range hood 抽油煙機",video:"bA-3BJa76bM"},
+      {n:25,title:"Word of the Day: chess (n) 象棋",video:"7apB90SiM18"},
+      {n:26,title:"Word of the Day: reinstall (v) 重新安裝",video:"i5NE3lXX4xM"},
+      {n:27,title:"Word of the Day: rainy day  (n) 下雨天",video:"VuUo9WRNlkw"},
+      {n:28,title:"Word of the Day: umbrella (n) 雨傘",video:"czMZ9389nFc"},
+      {n:29,title:"Word of the Day: peel (v) 剝皮",video:"qUYH28pWoak"},
+      {n:30,title:"Word of the Day gate 門",video:"Njoo0RXQCdY"},
+      {n:31,title:"Word of the Day: drill (n) 鑽孔機",video:"0eIvWBEoNhI"},
+      {n:32,title:"Word of the Day: sheep (n) 羊",video:"0A3Q2BUfTtM"},
+      {n:33,title:"Word of the Day: school anniversary 校慶",video:"N14nc1JklAA"},
+      {n:34,title:"Word of the Day: road (n) 道路",video:"bXDzjEy_N1Q"},
+      {n:35,title:"Word of the Day: screen door 紗門",video:"c77jFd8oTU4"},
+      {n:36,title:"Word of the Day: shopping cart 購物車",video:"uq9cO4Fs1mI"},
+      {n:37,title:"Word of the Day: steering wheel (n) 方向盤",video:"mHE5CF1eFig"},
+      {n:38,title:"Word of the Day: escalator (n) 手扶梯",video:"x6DngX2IsnQ"},
+      {n:39,title:"Word of the Day: prune (v) 修剪",video:"4I7LaTvraaU"},
+      {n:40,title:"Word of the Day: lantern (n) 燈籠",video:"ZUNuGuOPIik"},
+      {n:41,title:"Word of the Day: aquarium (n) 水族館",video:"-wHh7wnrHAg"},
+      {n:42,title:"Word of the Day: sand (v) 磨光",video:"gM6IpmJ2IzM"},
+      {n:43,title:"Word of the Day: traffic light (n) 紅綠燈",video:"WAcCdpvNWIM"},
+      {n:44,title:"Word of the Day: dry (v) 風乾",video:"7SJCj-SX7ZY"},
+      {n:45,title:"Word of the Day: highway (n) 高速公路",video:"LA-GuMwg-tI"},
+      {n:46,title:"Word of the Day: new car 新車",video:"ulGzfF63qbs"},
+      {n:47,title:"Word of the Day: oil change (n) 換機油",video:"SwlsSpawrUE"},
+      {n:48,title:"Word of the Day: drive-through (n) 得來速",video:"dxfeNK3A0d4"},
+      {n:49,title:"Word of the Day: install (v) 安裝",video:"MgDQr0pNu4I"},
+      {n:50,title:"Word of the Day: charm (n) 飾品",video:"-2_TeEJCJpc"},
+      {n:51,title:"Word of the Day: pump (n) 打氣筒",video:"KDtEwPmCEmQ"},
+      {n:52,title:"Word of the Day: recycling (n) 回收",video:"QXqXbZkRR_Q"}
+    ]},
+    garden:{zh:"園藝雙語",en:"Gardening Bilingual",pl:"PLEEUvULVN3pyJoa_RxXLqh_0fVLTJvsbG",items:[
+      {n:1,title:"植物幼苗長大 中文",video:"E0cSJATtGyw"},
+      {n:2,title:"植物幼苗長大 英文",video:"Q2YnoW7hg_Y"}
+    ]},
+    anniv:{zh:"全民20週年慶",en:"20th Anniversary",pl:"PLEEUvULVN3pymc4mWeZLL9L0mzZTNpJwt",items:[
+      {n:1,title:"全民20週年-兔子舞",video:"yaiWSvHuapg"},
+      {n:2,title:"全民20週年-金罵沒ㄤ",video:"UnwZ0X-7Wdk"},
+      {n:3,title:"全民20週年-Happy Birthday",video:"dINHjr_BYSw"},
+      {n:4,title:"全民20週年-YMCA",video:"tyV7TwvZOaE"},
+      {n:5,title:"全民20週年- 魔術表演",video:"NVFq7UaWynI"},
+      {n:6,title:"全民20週年-皇后開場舞",video:"Ok5dOy3nBaM"},
+      {n:7,title:"全民20週年-冰原飄移舞",video:"WmRFa6-QAz4"},
+      {n:8,title:"全民20週年-The Candy Man",video:"jciGTkSLUwE"},
+      {n:9,title:"全民英語補習班歡慶20週年",video:"l8awfw8XmYM"},
+      {n:10,title:"全民20週年-快樂天堂",video:"uutRFXGQX4I"}
+    ]},
+    study:{zh:"如何提高學習效率",en:"Study Smarter",pl:"PLEEUvULVN3pwNZsfK4kjxwVQj8XOAoAhh",items:[
+      {n:1,title:"如何提高學習效率-開場",video:"z6fLQYBNqyE"},
+      {n:2,title:"如何提高學習效率--對象",video:"H0QuwOxvIkM"},
+      {n:3,title:"如何提高學習效率--聽講前先建立的觀念",video:"zymcyiTjFaU"},
+      {n:4,title:"如何提高學習效率--三大法寶",video:"OduzEVADWDQ"},
+      {n:5,title:"如何提高學習效率--三大法寶 有效率的學習方法",video:"icaGuiFBxzY"},
+      {n:6,title:"如何提高學習效率--建議有效的學習方法1",video:"cokYQHEeFMI"},
+      {n:7,title:"如何提高學習效率--建議有效的學習方法2",video:"xO2uKbUId1E"},
+      {n:8,title:"建議有效的學習方法3",video:"NhRPMu3qh-0"},
+      {n:9,title:"如何有效提高學習效率--建議有效的學習方法4",video:"XJpOW011en4"},
+      {n:10,title:"如何有效提高學習效率--建議有效的學習方法5&6",video:"5jJv8UZz_oc"},
+      {n:11,title:"如何有效提高學習效率--建議有效的學習方法7&8",video:"LxyyeA_cmuw"},
+      {n:12,title:"如何提高學習效率--結語",video:"0nInSDn_TBE"}
+    ]}
+  };
+
+  function qs(k){return new URLSearchParams(location.search).get(k)}
+  let CAT = CATS[qs('id')] || CATS.daily;
+
+  document.getElementById('hTitle').textContent=CAT.zh;
+  document.getElementById('cZh').textContent=CAT.zh;
+  document.getElementById('cZh2').textContent=CAT.zh;
+  document.title=CAT.zh+' ｜ 全民英語補習班';
+
+  const qlist=document.getElementById('qlist');
+  CAT.items.forEach(q=>{
+    const b=document.createElement('button');
+    b.className='qrow';
+    b.innerHTML=`<span class="num">${q.n}</span><span class="qt">${q.title}</span>`;
+    b.onclick=()=>openQ(q.n);
+    qlist.appendChild(b);
+  });
+
+  function openQ(n){
+    const q=CAT.items.find(x=>x.n===n);
+    document.getElementById('dNo').textContent=q.n+'.';
+    document.getElementById('dTitle').textContent=q.title;
+    document.getElementById('dPlayer').src=`https://www.youtube.com/embed/${q.video}?rel=0&autoplay=1`;
+    document.getElementById('head').classList.add('hide');
+    qlist.classList.add('hide');
+    document.getElementById('detail').classList.add('show');
+    window.scrollTo({top:0,behavior:'instant'});
+  }
+  function showList(){
+    document.getElementById('dPlayer').src='';
+    document.getElementById('detail').classList.remove('show');
+    document.getElementById('head').classList.remove('hide');
+    qlist.classList.remove('hide');
+  }
+  function setLang(lang,btn){
+    document.body.classList.toggle('en',lang==='en');
+    document.documentElement.lang=lang==='en'?'en':'zh-Hant';
+    document.querySelectorAll('.lang button').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+  }
+</script>
+</body>
+</html>

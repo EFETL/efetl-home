@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>全民英語補習班 ｜ 田尾 ‧ 溫暖陪伴 × 紮實升學</title>
+<style>
+  :root{
+    --ink:#16233d;
+    --ink-soft:#5b6b86;
+    --blue:#1f56e0;        /* 企鵝藍：主色 */
+    --blue-deep:#143fb0;
+    --sky:#5b9bff;
+    --red:#ff4757;         /* 領結紅 */
+    --yellow:#ffce2e;      /* 嘴巴/腳黃：CTA */
+    --yellow-deep:#f6b400;
+    --mint:#21d4a8;
+    --bg:#ffffff;
+    --bg-soft:#eef4ff;
+    --line:#e3ecfa;
+    --radius:20px;
+    --shadow:0 20px 55px -22px rgba(31,86,224,.45);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- 導覽列 ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    backdrop-filter:saturate(180%) blur(12px);
+    background:rgba(255,255,255,.85);border-bottom:1px solid var(--line);
+  }
+  .nav{max-width:1180px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:19px}
+  .brand img{width:48px;height:48px;object-fit:contain;flex:none}
+  .brand small{display:block;font-size:11px;font-weight:600;color:var(--blue);letter-spacing:2.5px}
+  nav ul{list-style:none;display:flex;gap:26px;align-items:center}
+  nav a{text-decoration:none;color:var(--ink);font-size:15px;font-weight:700;transition:.2s;white-space:nowrap;position:relative}
+  nav a:hover{color:var(--blue)}
+  .nav-right{display:flex;align-items:center;gap:14px}
+  .lang{display:flex;border:1.5px solid var(--line);border-radius:999px;overflow:hidden;font-size:13px;font-weight:800}
+  .lang button{border:none;background:transparent;padding:7px 14px;cursor:pointer;color:var(--ink-soft);transition:.2s}
+  .lang button.on{background:var(--blue);color:#fff}
+  .btn{display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;font-weight:800;font-size:15px;border-radius:999px;padding:12px 22px;text-decoration:none;transition:transform .15s,box-shadow .2s}
+  .btn-cta{background:var(--yellow);color:#3a2c00;box-shadow:0 12px 30px -10px rgba(246,180,0,.85)}
+  .btn-cta:hover{transform:translateY(-2px) rotate(-1deg)}
+  .menu-toggle{display:none;background:none;border:none;font-size:26px;cursor:pointer;color:var(--ink)}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;overflow:hidden;padding:140px 24px 95px;
+    background:
+      radial-gradient(800px 480px at 88% -8%,rgba(91,155,255,.30),transparent 60%),
+      radial-gradient(680px 480px at -6% 112%,rgba(255,206,46,.28),transparent 60%),
+      radial-gradient(520px 420px at 50% 130%,rgba(255,71,87,.10),transparent 60%),
+      var(--bg-soft);
+  }
+  /* 裝飾泡泡 */
+  .blob{position:absolute;border-radius:50%;filter:blur(1px);opacity:.85;animation:float 7s ease-in-out infinite}
+  .blob.b1{width:22px;height:22px;background:var(--red);top:18%;left:8%}
+  .blob.b2{width:14px;height:14px;background:var(--yellow);top:30%;left:40%;animation-delay:1.2s}
+  .blob.b3{width:28px;height:28px;background:var(--mint);bottom:16%;right:10%;animation-delay:.6s}
+  .blob.b4{width:16px;height:16px;background:var(--sky);top:24%;right:30%;animation-delay:2s}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+
+  .hero-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center;position:relative;z-index:2}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:8px 16px;font-size:13.5px;font-weight:800;color:var(--blue-deep);box-shadow:0 8px 18px -10px rgba(31,86,224,.6);margin-bottom:22px}
+  .eyebrow .dot{width:9px;height:9px;border-radius:50%;background:var(--red);box-shadow:0 0 0 4px rgba(255,71,87,.18)}
+  h1{font-size:clamp(33px,4.6vw,56px);line-height:1.16;font-weight:900;letter-spacing:-.5px;margin-bottom:20px}
+  h1 .hl{position:relative;background:linear-gradient(120deg,var(--blue),var(--red));-webkit-background-clip:text;background-clip:text;color:transparent}
+  h1 .hl::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:12px;background:rgba(255,206,46,.55);z-index:-1;border-radius:6px}
+  .lede{font-size:clamp(16px,1.5vw,19px);color:var(--ink-soft);max-width:530px;margin-bottom:32px}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .btn-ghost{background:#fff;color:var(--blue-deep);border:2px solid var(--line)}
+  .btn-ghost:hover{border-color:var(--blue);transform:translateY(-2px)}
+  .stats{display:flex;gap:18px;margin-top:42px;flex-wrap:wrap}
+  .stat{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:14px 18px;box-shadow:0 10px 24px -18px rgba(31,86,224,.5)}
+  .stat b{display:block;font-size:24px;font-weight:900;color:var(--blue);line-height:1.1}
+  .stat span{font-size:13px;color:var(--ink-soft);font-weight:700}
+
+  /* Hero 視覺卡 */
+  .hero-card{position:relative;background:linear-gradient(160deg,#fff,#f3f8ff);border:1px solid var(--line);border-radius:28px;padding:28px;box-shadow:var(--shadow)}
+  .hero-card .photo{aspect-ratio:4/3;border-radius:20px;overflow:hidden;position:relative}
+  .hero-card .photo>img.shot{width:100%;height:100%;object-fit:cover;display:block}
+  .hero-card .penguin{position:absolute;width:30%;bottom:-8px;right:-6px;filter:drop-shadow(0 8px 14px rgba(0,0,0,.3));z-index:2;transform:rotate(-6deg)}
+  .hero-card .cap{margin-top:16px;text-align:center;font-weight:800;font-size:15px;color:var(--ink)}
+  .hero-card .cap small{display:block;font-weight:600;color:var(--ink-soft);font-size:12.5px;margin-top:2px}
+  .float{position:absolute;background:#fff;border:1px solid var(--line);border-radius:15px;padding:11px 15px;box-shadow:0 16px 40px -18px rgba(0,0,0,.32);font-weight:800;font-size:14px;display:flex;align-items:center;gap:10px}
+  .float .ic{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-size:17px;color:#fff;flex:none}
+  .float.f1{top:-16px;right:-12px}.float.f1 .ic{background:var(--red)}
+  .float.f2{bottom:-16px;left:-12px}.float.f2 .ic{background:var(--yellow);color:#3a2c00}
+  .float small{display:block;font-weight:600;color:var(--ink-soft);font-size:12px}
+
+  @media(max-width:920px){
+    nav ul{display:none}.menu-toggle{display:block}
+    .hero-inner{grid-template-columns:1fr;gap:60px}.hero{padding-top:124px}
+  }
+  @media(max-width:520px){.nav-right .btn{display:none}.stats{gap:12px}}
+
+  /* ---------- 共用區塊 ---------- */
+  section.block{padding:90px 24px;position:relative}
+  .wrap{max-width:1180px;margin:0 auto}
+  .sec-head{text-align:center;max-width:680px;margin:0 auto 54px}
+  .kicker{display:inline-block;font-size:14px;font-weight:900;letter-spacing:2px;color:var(--blue);background:var(--bg-soft);padding:6px 16px;border-radius:999px;margin-bottom:16px}
+  .sec-head h2{font-size:clamp(27px,3.4vw,40px);font-weight:900;letter-spacing:-.5px;line-height:1.2;margin-bottom:14px}
+  .sec-head h2 .hl{color:var(--blue)}
+  .sec-head p{color:var(--ink-soft);font-size:16.5px}
+  .alt{background:var(--bg-soft)}
+
+  /* 創班精神：特色卡 */
+  .feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+  .feat{background:#fff;border:1.5px solid var(--line);border-radius:var(--radius);padding:26px;transition:transform .2s,box-shadow .2s}
+  .feat:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+  .feat .ic{width:54px;height:54px;border-radius:15px;display:grid;place-items:center;font-size:25px;margin-bottom:16px;color:#fff}
+  .feat:nth-child(1) .ic{background:var(--blue)}
+  .feat:nth-child(2) .ic{background:var(--red)}
+  .feat:nth-child(3) .ic{background:var(--yellow-deep)}
+  .feat:nth-child(4) .ic{background:var(--mint)}
+  .feat h3{font-size:18px;font-weight:900;margin-bottom:8px}
+  .feat p{color:var(--ink-soft);font-size:14.5px}
+
+  /* 招生班別 */
+  .class-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .class-card{background:#fff;border:1.5px solid var(--line);border-radius:var(--radius);padding:28px;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s}
+  .class-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+  .class-card .tag{display:inline-block;font-size:13px;font-weight:900;color:#fff;background:var(--blue);padding:5px 13px;border-radius:999px;margin-bottom:14px}
+  .class-card.red .tag{background:var(--red)}
+  .class-card.yellow .tag{background:var(--yellow-deep)}
+  .class-card h3{font-size:21px;font-weight:900;margin-bottom:6px}
+  .class-card .who{color:var(--ink-soft);font-size:14px;margin-bottom:16px}
+  .class-card ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+  .class-card li{font-size:14.5px;padding-left:26px;position:relative;color:#33405c}
+  .class-card li::before{content:"✓";position:absolute;left:0;top:0;font-weight:900;color:var(--mint)}
+
+  /* 英檢 */
+  .geft-wrap{display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:center}
+  .geft-card{background:linear-gradient(150deg,var(--blue),var(--blue-deep));color:#fff;border-radius:24px;padding:38px;box-shadow:var(--shadow)}
+  .geft-card h3{font-size:24px;font-weight:900;margin-bottom:10px}
+  .geft-card p{opacity:.92;font-size:15px;margin-bottom:24px}
+  .geft-levels{display:flex;gap:10px;flex-wrap:wrap}
+  .geft-levels span{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);padding:8px 14px;border-radius:12px;font-weight:800;font-size:14px}
+  .geft-points{display:flex;flex-direction:column;gap:18px}
+  .geft-point{display:flex;gap:16px;align-items:flex-start}
+  .geft-point .n{width:42px;height:42px;border-radius:12px;background:var(--bg-soft);color:var(--blue);font-weight:900;display:grid;place-items:center;flex:none;font-size:18px}
+  .geft-point h4{font-size:17px;font-weight:900;margin-bottom:3px}
+  .geft-point p{color:var(--ink-soft);font-size:14.5px}
+
+  /* 升學榮耀 */
+  .honor-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-bottom:40px}
+  .honor-num{background:#fff;border:1.5px solid var(--line);border-radius:var(--radius);padding:28px 20px;text-align:center}
+  .honor-num b{display:block;font-size:42px;font-weight:900;color:var(--blue);line-height:1}
+  .honor-num span{font-size:14px;color:var(--ink-soft);font-weight:700;margin-top:6px;display:block}
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .quote{background:#fff;border:1.5px solid var(--line);border-radius:var(--radius);padding:26px}
+  .quote .stars{color:var(--yellow-deep);font-size:16px;margin-bottom:10px}
+  .quote p{font-size:14.5px;color:#33405c;margin-bottom:16px;font-style:italic}
+  .quote .by{font-weight:800;font-size:14px}.quote .by small{color:var(--ink-soft);font-weight:600}
+
+  /* 影音教學 */
+  .vid-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .vid{display:block;text-decoration:none;color:inherit;background:#fff;border:1.5px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:transform .2s,box-shadow .2s}
+  .vid:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+  .thumb{aspect-ratio:16/9;position:relative;display:grid;place-items:center;overflow:hidden}
+  .thumb .emoji{font-size:62px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.18));z-index:1}
+  .thumb::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.10) 0 18px,transparent 18px 36px)}
+  .thumb .peng{position:absolute;width:30%;bottom:-6px;right:4px;transform:rotate(-7deg);filter:drop-shadow(0 5px 8px rgba(0,0,0,.25));z-index:1}
+  .thumb .play{position:absolute;width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;z-index:2;box-shadow:0 8px 20px rgba(0,0,0,.25);opacity:0;transition:.2s}
+  .vid:hover .play{opacity:1}
+  .thumb .play::after{content:"";border-left:18px solid var(--red);border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:4px}
+  .t-blue{background:linear-gradient(140deg,var(--blue),var(--sky))}
+  .t-mint{background:linear-gradient(140deg,var(--mint),#7be3c6)}
+  .t-red{background:linear-gradient(140deg,var(--red),#ff8a93)}
+  .t-yellow{background:linear-gradient(140deg,var(--yellow-deep),var(--yellow))}
+  .t-sky{background:linear-gradient(140deg,#3b82f6,#93c5fd)}
+  .t-grape{background:linear-gradient(140deg,#7c5cff,#b39bff)}
+  .vid-body{padding:18px 20px}
+  .vid-body .yt{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:900;color:#ff0000;margin-bottom:8px}
+  .vid-body h3{font-size:17px;font-weight:900;margin-bottom:5px}
+  .vid-body p{font-size:13.5px;color:var(--ink-soft)}
+
+  /* 聯絡 */
+  .contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+  .info-list{display:flex;flex-direction:column;gap:20px;margin:26px 0 28px}
+  .info-item{display:flex;gap:15px;align-items:flex-start}
+  .info-item .ic{width:46px;height:46px;border-radius:13px;background:var(--bg-soft);color:var(--blue);display:grid;place-items:center;font-size:20px;flex:none}
+  .info-item b{display:block;font-size:16px}.info-item span{color:var(--ink-soft);font-size:14.5px}
+  .info-item a{color:var(--blue);text-decoration:none;font-weight:700}
+  .contact-cta{display:flex;gap:12px;flex-wrap:wrap}
+  .btn-line{background:#06c755;color:#fff}
+  .btn-tel{background:var(--blue);color:#fff}
+  form{background:#fff;border:1.5px solid var(--line);border-radius:24px;padding:30px;box-shadow:var(--shadow)}
+  form label{display:block;font-weight:800;font-size:14px;margin:0 0 6px}
+  form .field{margin-bottom:18px}
+  form input,form select,form textarea{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-size:15px;font-family:inherit;color:var(--ink);background:#fbfcff;transition:.2s}
+  form input:focus,form select:focus,form textarea:focus{outline:none;border-color:var(--blue);background:#fff}
+  form button{width:100%;justify-content:center;margin-top:4px}
+  .map{border-radius:18px;overflow:hidden;border:1.5px solid var(--line);height:240px;margin-top:30px}
+  .map iframe{width:100%;height:100%;border:0;display:block}
+
+  /* footer */
+  footer{background:var(--ink);color:#cdd7ea;padding:46px 24px 30px}
+  .foot{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center}
+  .foot .brand{color:#fff}.foot .brand small{color:var(--sky)}
+  .foot .brand img{background:#fff;border-radius:10px;padding:3px}
+  .foot p{font-size:13.5px;opacity:.8}
+
+  @media(max-width:920px){
+    .feat-grid{grid-template-columns:1fr 1fr}
+    .class-grid{grid-template-columns:1fr}
+    .geft-wrap,.contact-wrap{grid-template-columns:1fr;gap:30px}
+    .vid-grid{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:520px){.feat-grid,.vid-grid{grid-template-columns:1fr}}
+
+  [data-en]{display:none}
+  body.en [data-zh]{display:none}
+  body.en [data-en]{display:revert}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="brand">
+      <img src="logo.png" alt="全民英語補習班 logo">
+      <span>全民英語補習班<small>EFETL ‧ TIANWEI</small></span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#about"><span data-zh>創班精神</span><span data-en>About</span></a></li>
+        <li><a href="#classes"><span data-zh>招生班別</span><span data-en>Classes</span></a></li>
+        <li><a href="#geft"><span data-zh>英檢專區</span><span data-en>GEPT</span></a></li>
+        <li><a href="videos.html"><span data-zh>影音教學</span><span data-en>Videos</span></a></li>
+        <li><a href="#contact"><span data-zh>聯絡我們</span><span data-en>Contact</span></a></li>
+      </ul>
+    </nav>
+    <div class="nav-right">
+      <div class="lang">
+        <button class="on" onclick="setLang('zh',this)">中</button>
+        <button onclick="setLang('en',this)">EN</button>
+      </div>
+      <a href="#contact" class="btn btn-cta"><span data-zh>📞 預約試聽</span><span data-en>📞 Book a Trial</span></a>
+    </div>
+    <button class="menu-toggle">☰</button>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><span class="blob b4"></span>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <span class="eyebrow"><span class="dot"></span>
+        <span data-zh>彰化田尾 ‧ 圖書館旁</span><span data-en>Tianwei, Changhua</span>
+      </span>
+      <h1>
+        <span data-zh>不只追求成績，<br>更陪孩子<span class="hl">贏在升學路上</span></span>
+        <span data-en>More than grades —<br>we help your child <span class="hl">win at every step</span></span>
+      </h1>
+      <p class="lede">
+        <span data-zh>專注國小到國中的英語紮根，從打好基礎、全民英檢到升學衝刺。溫暖、安全、有秩序的環境，陪每個孩子建立自信、好習慣與好成績。</span>
+        <span data-en>English foundations for elementary & junior-high — from basics and the GEPT to exam success. A warm, safe and structured place where children build confidence, habits and results.</span>
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-cta"><span data-zh>預約免費試聽 →</span><span data-en>Free Trial Class →</span></a>
+        <a href="#classes" class="btn btn-ghost"><span data-zh>看招生班別</span><span data-en>View Classes</span></a>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>國小–國中</b><span data-zh>全程英語陪伴</span><span data-en>Full journey</span></div>
+        <div class="stat"><b>GEPT</b><span data-zh>全民英檢輔導</span><span data-en>Exam coaching</span></div>
+        <div class="stat"><b>升學</b><span data-zh>會考實力養成</span><span data-en>Exam-ready</span></div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="photo">
+          <img class="shot" src="learn.jpg" alt="老師帶孩子快樂學英文">
+          <img class="penguin" src="logo.png" alt="吉祥物企鵝">
+        </div>
+        <div class="cap"><span data-zh>快樂開口說英文</span><span data-en>Speak English with joy</span>
+          <small data-zh>小班互動、自然開口</small><small data-en>Small classes, real interaction</small>
+        </div>
+        <div class="float f1"><span class="ic">★</span>
+          <span><span data-zh>升學榮耀</span><span data-en>Top results</span>
+            <small data-zh>歷屆好成績</small><small data-en>Proven record</small></span>
+        </div>
+        <div class="float f2"><span class="ic">♥</span>
+          <span><span data-zh>溫暖陪伴</span><span data-en>Warm care</span>
+            <small data-zh>重視品格養成</small><small data-en>Character first</small></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 創班精神 ========== -->
+<section class="block" id="about">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker" data-zh>創班精神</span><span class="kicker" data-en>OUR HEART</span>
+      <h2><span data-zh>溫暖、安全、有秩序的<span class="hl">學習環境</span></span><span data-en>A warm, safe & <span class="hl">structured</span> place to learn</span></h2>
+      <p><span data-zh>我們相信，學習不只追求成績，更是陪伴孩子成長。在這裡，每個孩子都被好好照顧、慢慢變得更有自信。</span><span data-en>Learning is about more than grades — it's about growing alongside each child with care and confidence.</span></p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat"><div class="ic">📚</div><h3><span data-zh>紮實基礎</span><span data-en>Solid Basics</span></h3><p><span data-zh>從發音、單字到文法，一步步打穩英語地基，學得久也學得會。</span><span data-en>From phonics to grammar — a foundation that lasts.</span></p></div>
+      <div class="feat"><div class="ic">💛</div><h3><span data-zh>溫暖陪伴</span><span data-en>Warm Care</span></h3><p><span data-zh>重視品格、責任感與學習習慣，老師像家人般關心每個孩子。</span><span data-en>Character, responsibility and habits — care like family.</span></p></div>
+      <div class="feat"><div class="ic">🎯</div><h3><span data-zh>升學導向</span><span data-en>Exam Focus</span></h3><p><span data-zh>對準會考與全民英檢，培養真正帶得走的應考實力。</span><span data-en>Aligned to the GEPT and high-school entrance exams.</span></p></div>
+      <div class="feat"><div class="ic">🌱</div><h3><span data-zh>在地深耕</span><span data-en>Local Roots</span></h3><p><span data-zh>扎根田尾鄉，服務社區家庭，給孩子最安心的就近選擇。</span><span data-en>Rooted in Tianwei, serving local families with trust.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 招生班別 ========== -->
+<section class="block alt" id="classes">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker" data-zh>招生班別</span><span class="kicker" data-en>OUR CLASSES</span>
+      <h2><span data-zh>適合每個階段的<span class="hl">英語課程</span></span><span data-en>The right class for <span class="hl">every stage</span></span></h2>
+      <p><span data-zh>從國小啟蒙到國中衝刺，依程度分班，小班教學、進度看得見。</span><span data-en>From elementary beginners to junior-high prep — leveled small classes.</span></p>
+    </div>
+    <div class="class-grid">
+      <div class="class-card yellow"><span class="tag"><span data-zh>國小 ‧ 基礎</span><span data-en>Elementary</span></span><h3><span data-zh>國小正音班</span><span data-en>Phonics Class</span></h3><p class="who"><span data-zh>適合國小低年級起</span><span data-en>Early elementary</span></p><ul><li><span data-zh>自然發音、看字讀音</span><span data-en>Natural phonics</span></li><li><span data-zh>打好聽說讀的基礎</span><span data-en>Listening & reading basics</span></li><li><span data-zh>建立正確發音習慣</span><span data-en>Correct pronunciation habits</span></li></ul></div>
+      <div class="class-card yellow"><span class="tag"><span data-zh>國小 ‧ 課後</span><span data-en>After-school</span></span><h3><span data-zh>國小安親班</span><span data-en>After-school Care</span></h3><p class="who"><span data-zh>適合國小 1–6 年級</span><span data-en>Grades 1–6</span></p><ul><li><span data-zh>放學接送、課業指導</span><span data-en>Pickup & homework help</span></li><li><span data-zh>溫暖安全的學習環境</span><span data-en>Warm, safe environment</span></li><li><span data-zh>陪養生活與讀書習慣</span><span data-en>Good study habits</span></li></ul></div>
+      <div class="class-card yellow"><span class="tag"><span data-zh>國小 ‧ 英語</span><span data-en>Kids English</span></span><h3><span data-zh>兒童英語班</span><span data-en>Children's English</span></h3><p class="who"><span data-zh>適合國小 1–6 年級</span><span data-en>Grades 1–6</span></p><ul><li><span data-zh>聽說讀寫均衡發展</span><span data-en>Balanced four skills</span></li><li><span data-zh>遊戲互動、快樂學習</span><span data-en>Fun, interactive lessons</span></li><li><span data-zh>累積單字與閱讀力</span><span data-en>Vocabulary & reading</span></li></ul></div>
+      <div class="class-card"><span class="tag"><span data-zh>國中 ‧ 英語</span><span data-en>Junior English</span></span><h3><span data-zh>國中英語班</span><span data-en>Junior High English</span></h3><p class="who"><span data-zh>適合國中 7–9 年級</span><span data-en>Grades 7–9</span></p><ul><li><span data-zh>文法句型系統化整理</span><span data-en>Systematic grammar</span></li><li><span data-zh>學校段考同步加強</span><span data-en>Synced with school exams</span></li><li><span data-zh>會考題型實戰演練</span><span data-en>Entrance-exam practice</span></li></ul></div>
+      <div class="class-card"><span class="tag"><span data-zh>國中 ‧ 全科</span><span data-en>All Subjects</span></span><h3><span data-zh>國中全科班</span><span data-en>Junior High All-Subjects</span></h3><p class="who"><span data-zh>適合國中 7–9 年級</span><span data-en>Grades 7–9</span></p><ul><li><span data-zh>國英數自社全面輔導</span><span data-en>All core subjects covered</span></li><li><span data-zh>段考衝刺、作業督導</span><span data-en>Exam prep & homework</span></li><li><span data-zh>會考全科實力養成</span><span data-en>Entrance-exam ready</span></li></ul></div>
+      <div class="class-card red"><span class="tag"><span data-zh>檢定 ‧ 衝刺</span><span data-en>GEPT</span></span><h3><span data-zh>全民英檢班</span><span data-en>GEPT Prep</span></h3><p class="who"><span data-zh>初級／中級皆可</span><span data-en>Elementary & Intermediate</span></p><ul><li><span data-zh>聽說讀寫四項全面準備</span><span data-en>All four skills covered</span></li><li><span data-zh>模擬考與口說特訓</span><span data-en>Mock tests & speaking drills</span></li><li><span data-zh>取得證照、升學加分</span><span data-en>Certification for admissions</span></li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 英檢專區 ========== -->
+<section class="block" id="geft">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker" data-zh>英檢專區</span><span class="kicker" data-en>GEPT ZONE</span>
+      <h2><span data-zh>全民英檢，<span class="hl">一次到位</span></span><span data-en>GEPT prep, <span class="hl">done right</span></span></h2>
+    </div>
+    <div class="geft-wrap">
+      <div class="geft-card">
+        <img src="digital.jpg" alt="數位化英語學習" style="width:100%;border-radius:16px;margin-bottom:22px;display:block">
+        <h3><span data-zh>專業英檢輔導</span><span data-en>Expert GEPT Coaching</span></h3>
+        <p><span data-zh>針對全民英語能力分級檢定，量身規劃學習進度，從基礎到應考一路陪伴。</span><span data-en>Tailored prep for the GEPT, from foundations to test day.</span></p>
+        <div class="geft-levels"><span data-zh>初級</span><span data-en>Elementary</span><span data-zh>中級</span><span data-en>Intermediate</span><span data-zh>聽 ‧ 說 ‧ 讀 ‧ 寫</span><span data-en>L ‧ S ‧ R ‧ W</span></div>
+      </div>
+      <div class="geft-points">
+        <div class="geft-point"><div class="n">1</div><div><h4><span data-zh>程度檢測分班</span><span data-en>Placement test</span></h4><p><span data-zh>先了解孩子的程度，再給最合適的準備計畫。</span><span data-en>We assess first, then plan the right path.</span></p></div></div>
+        <div class="geft-point"><div class="n">2</div><div><h4><span data-zh>題型實戰演練</span><span data-en>Real exam drills</span></h4><p><span data-zh>熟悉各大題型與作答技巧，臨場不緊張。</span><span data-en>Master every question type with confidence.</span></p></div></div>
+        <div class="geft-point"><div class="n">3</div><div><h4><span data-zh>口說模擬特訓</span><span data-en>Speaking practice</span></h4><p><span data-zh>真人對話模擬，開口說英語不再害怕。</span><span data-en>Live speaking practice to beat exam nerves.</span></p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 影音教學 ========== -->
+<section class="block alt" id="videos">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker" data-zh>影音教學</span><span class="kicker" data-en>VIDEOS</span>
+      <h2><span data-zh>線上<span class="hl">影音學習</span>，隨時隨地學英文</span><span data-en>Learn anytime with our <span class="hl">video lessons</span></span></h2>
+      <p><span data-zh>全民英語 YouTube 頻道精選播放清單，點擊即可觀看。</span><span data-en>Curated playlists from our YouTube channel — tap to watch.</span></p>
+    </div>
+    <div class="vid-grid">
+      <a class="vid" href="videos.html">
+        <div class="thumb t-blue"><span class="emoji">📖✨</span><img class="peng" src="logo.png" alt=""><span class="play"></span></div>
+        <div class="vid-body"><span class="yt">▶ YouTube</span><h3><span data-zh>每日一字</span><span data-en>Word of the Day</span></h3><p><span data-zh>每天一個單字，累積實力不間斷</span><span data-en>One new word every day</span></p></div>
+      </a>
+      <a class="vid" href="videos.html">
+        <div class="thumb t-sky"><span class="emoji">🗣️🅰️</span><img class="peng" src="logo.png" alt=""><span class="play"></span></div>
+        <div class="vid-body"><span class="yt">▶ YouTube</span><h3><span data-zh>全民英檢初級口說</span><span data-en>GEPT Elementary Speaking</span></h3><p><span data-zh>初級口說題型實戰示範</span><span data-en>Elementary speaking practice</span></p></div>
+      </a>
+      <a class="vid" href="videos.html">
+        <div class="thumb t-yellow"><span class="emoji">🚀💡</span><img class="peng" src="logo.png" alt=""><span class="play"></span></div>
+        <div class="vid-body"><span class="yt">▶ YouTube</span><h3><span data-zh>如何提高學習效率</span><span data-en>Study Smarter</span></h3><p><span data-zh>實用讀書方法，事半功倍</span><span data-en>Practical study tips</span></p></div>
+      </a>
+    </div>
+    <div style="text-align:center;margin-top:40px">
+      <a href="videos.html" class="btn btn-cta"><span data-zh>看全部影音教學 →</span><span data-en>See all videos →</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 聯絡我們 ========== -->
+<section class="block" id="contact">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker" data-zh>聯絡我們</span><span class="kicker" data-en>CONTACT</span>
+      <h2><span data-zh>歡迎<span class="hl">預約免費試聽</span></span><span data-en>Book a <span class="hl">free trial class</span></span></h2>
+      <p><span data-zh>留下資料或直接來電，我們會盡快與您聯繫，為孩子安排合適的課程。</span><span data-en>Leave your details or call us — we'll arrange the right class for your child.</span></p>
+    </div>
+    <div class="contact-wrap">
+      <div class="contact-info">
+        <div class="info-list">
+          <div class="info-item"><div class="ic">📍</div><div><b><span data-zh>補習班地址</span><span data-en>Address</span></b><span data-zh>彰化縣田尾鄉公所路159號（田尾圖書館）</span><span data-en>No.159, Gongsuo Rd, Tianwei, Changhua (Tianwei Library)</span></div></div>
+          <div class="info-item"><div class="ic">📞</div><div><b><span data-zh>電話</span><span data-en>Phone</span></b><a href="tel:048833604">04-8833604</a></div></div>
+          <div class="info-item"><div class="ic">💬</div><div><b>LINE</b><a href="https://line.me/R/ti/p/@bmp3057d" target="_blank" rel="noopener">@bmp3057d</a></div></div>
+          <div class="info-item"><div class="ic">📘</div><div><b>Facebook</b><a href="https://www.facebook.com/search/top?q=全民英語補習班粉絲團" target="_blank" rel="noopener"><span data-zh>全民英語補習班粉絲團</span><span data-en>EFETL Fan Page</span></a></div></div>
+        </div>
+        <div class="contact-cta">
+          <a href="tel:048833604" class="btn btn-tel"><span data-zh>📞 立即來電</span><span data-en>📞 Call now</span></a>
+          <a href="https://line.me/R/ti/p/@bmp3057d" target="_blank" rel="noopener" class="btn btn-line"><span data-zh>💬 加 LINE 詢問</span><span data-en>💬 LINE us</span></a>
+        </div>
+        <div class="map">
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=彰化縣田尾鄉公所路159號 田尾圖書館&output=embed"></iframe>
+        </div>
+      </div>
+      <form onsubmit="event.preventDefault();alert('感謝您的報名，我們會盡快與您聯繫！');this.reset();">
+        <div class="field"><label><span data-zh>家長姓名</span><span data-en>Parent's name</span></label><input required placeholder="您的稱呼"></div>
+        <div class="field"><label><span data-zh>聯絡電話</span><span data-en>Phone</span></label><input required type="tel" placeholder="09xx-xxx-xxx"></div>
+        <div class="field"><label><span data-zh>孩子年級</span><span data-en>Child's grade</span></label>
+          <select><option>國小正音班</option><option>國小安親班</option><option>兒童英語班</option><option>國中英語班</option><option>國中全科班</option><option>全民英檢班</option></select>
+        </div>
+        <div class="field"><label><span data-zh>想了解的內容</span><span data-en>Message</span></label><textarea rows="3" placeholder="例如：想預約試聽 / 詢問班別與費用"></textarea></div>
+        <button type="submit" class="btn btn-cta"><span data-zh>送出預約 →</span><span data-en>Send →</span></button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot">
+    <div class="brand"><img src="logo.png" width="44" height="44" alt="logo"><span>全民英語補習班<small>EFETL ‧ TIANWEI</small></span></div>
+    <p><span data-zh>彰化縣田尾鄉公所路159號（田尾圖書館） ‧ 04-8833604 ‧ LINE @bmp3057d<br>© 2026 全民英語補習班 ‧ 用心陪伴每個孩子</span><span data-en>No.159, Gongsuo Rd, Tianwei, Changhua ‧ 04-8833604 ‧ LINE @bmp3057d<br>© 2026 EFETL English ‧ Growing with every child</span></p>
+  </div>
+</footer>
+
+<script>
+  function setLang(lang,btn){
+    document.body.classList.toggle('en',lang==='en');
+    document.documentElement.lang = lang==='en' ? 'en' : 'zh-Hant';
+    document.querySelectorAll('.lang button').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+  }
+</script>
+</body>
+</html>
