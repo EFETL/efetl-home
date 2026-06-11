@@ -246,6 +246,8 @@
   .news-card p:last-child{margin-bottom:0}
   .news-link{display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:800;color:var(--blue);text-decoration:none;border:1.5px solid var(--line);border-radius:999px;padding:8px 16px;transition:.2s}
   .news-link:hover{background:var(--bg-soft);border-color:var(--blue)}
+  .news-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+  .news-gallery img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
   @media(max-width:700px){.news-grid{grid-template-columns:1fr}}
 
   [data-en]{display:none}
@@ -470,16 +472,69 @@
       -->
       <!-- ===== 範本結束 ===== -->
 
-      <!-- 第一則消息（範例，之後可以修改或刪掉） -->
+      <!-- ===== 6/8 升國一暑假前準備 ===== -->
       <div class="news-card">
-        <div class="news-img-placeholder">🎉</div>
+        <img class="news-img" src="images/115暑假試聽.jpg" alt="暑假免費試聽">
         <div class="news-body">
           <div class="news-meta">
-            <span class="news-date">2026 年 6 月</span>
+            <span class="news-date">2026 年 6 月 8 日</span>
+            <span class="news-source">📘 Facebook</span>
           </div>
-          <h3><span data-zh>全民英語補習班官網正式上線！</span><span data-en>EFETL website is now live!</span></h3>
-          <p><span data-zh>歡迎來到全民英語補習班全新官網。您可以在這裡查看課程資訊、英檢練習題庫，以及最新消息。歡迎預約免費試聽！</span><span data-en>Welcome to the brand-new EFETL website. Find class info, GEPT practice, and the latest news here. Book a free trial today!</span></p>
-          <a class="news-link" href="#contact"><span data-zh>📞 預約試聽 →</span><span data-en>📞 Book a trial →</span></a>
+          <h3>贏在國中的第一步！</h3>
+          <p>升國一暑假前準備得越早，開學後就越輕鬆！</p>
+          <p>✨ 國中數學觀念先建立<br>
+             ✨ 國中英文能力先提升<br>
+             ✨ 培養自主學習好習慣</p>
+          <p>讓孩子帶著自信迎接國中新生活！</p>
+          <p><strong>【免費試聽】</strong><br>
+             數學｜6/16（二）1:30－3:00<br>
+             英文｜6/17（三）3:00－4:30</p>
+          <a class="news-link" href="#contact">📞 立即報名 →</a>
+        </div>
+      </div>
+
+      <!-- ===== 6/5 會考英文A++ ===== -->
+      <div class="news-card">
+        <img class="news-img" src="images/會考英文高分.jpg" alt="會考英文高分">
+        <div class="news-body">
+          <div class="news-meta">
+            <span class="news-date">2026 年 6 月 5 日</span>
+            <span class="news-source">📘 Facebook</span>
+          </div>
+          <h3>會考英文 A++ 不是奇蹟，是實力！</h3>
+          <p>選擇全民，紮實訓練、自信開口，讓孩子的英文成為最強競爭力！</p>
+        </div>
+      </div>
+
+      <!-- ===== 英檢證書 ===== -->
+      <div class="news-card">
+        <img class="news-img" src="images/英檢證書.jpg" alt="英檢證書">
+        <div class="news-body">
+          <div class="news-meta">
+            <span class="news-date">2026 年 5 月</span>
+          </div>
+          <h3>恭喜！學生英檢認證通過 🎉</h3>
+          <p>全民學生努力備考，順利取得全民英語能力分級檢定證書。英檢證照不只是成就，更是升學路上的重要競爭力！</p>
+          <a class="news-link" href="#geft">了解英檢課程 →</a>
+        </div>
+      </div>
+
+      <!-- ===== 3/26 英文朗讀比賽前三名 ===== -->
+      <div class="news-card">
+        <div class="news-gallery">
+          <img src="images/英文朗讀比賽1.jpg" alt="英文朗讀比賽">
+          <img src="images/英文朗讀比賽2.jpg" alt="英文朗讀比賽">
+          <img src="images/英文朗讀比賽3.jpg" alt="英文朗讀比賽">
+        </div>
+        <div class="news-body">
+          <div class="news-meta">
+            <span class="news-date">2026 年 3 月 26 日</span>
+            <span class="news-source">📘 Facebook</span>
+          </div>
+          <h3>重磅好消息！校內英文比賽前三名——全部來自全民！</h3>
+          <p>這不是巧合，是實力的累積。在全民，我們不只教英文，更培養孩子真正「會用英文」的能力。</p>
+          <p>從課堂表現到競賽成果，全民學生一次次用成績證明自己！</p>
+          <p>選擇全民，讓英文不再只是考試科目，讓孩子自信開口、真正會說英文。</p>
         </div>
       </div>
 
