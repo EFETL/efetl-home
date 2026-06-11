@@ -98,6 +98,21 @@
   @media(max-width:920px){
     nav ul{display:none}.menu-toggle{display:block}
     .hero-inner{grid-template-columns:1fr;gap:60px}.hero{padding-top:124px}
+    /* 漢堡選單展開 */
+    .nav.open nav ul{
+      display:flex;flex-direction:column;gap:0;
+      position:absolute;top:100%;left:0;right:0;
+      background:rgba(255,255,255,.97);
+      backdrop-filter:saturate(180%) blur(12px);
+      border-bottom:2px solid var(--line);
+      padding:8px 24px 20px;
+    }
+    .nav.open nav ul li a{
+      display:block;padding:14px 0;
+      border-bottom:1px solid var(--line);
+      font-size:16px;
+    }
+    .nav.open nav ul li:last-child a{border-bottom:none}
   }
   @media(max-width:520px){.nav-right .btn{display:none}.stats{gap:12px}}
 
@@ -353,6 +368,31 @@
         <div class="geft-point"><div class="n">3</div><div><h4><span data-zh>口說模擬特訓</span><span data-en>Speaking practice</span></h4><p><span data-zh>真人對話模擬，開口說英語不再害怕。</span><span data-en>Live speaking practice to beat exam nerves.</span></p></div></div>
       </div>
     </div>
+
+    <!-- 口說練習直達卡 -->
+    <div style="margin-top:40px">
+      <div class="sec-head" style="margin-bottom:24px">
+        <p style="font-weight:900;font-size:16px"><span data-zh>🎙️ 口說練習題庫，立即開始</span><span data-en>🎙️ Speaking practice — start now</span></p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px">
+        <a class="vid" href="gept-basic-oral.html">
+          <div class="thumb t-sky"><span class="emoji">🗣️🅰️</span><img class="peng" src="logo.png" alt=""><span class="play"></span></div>
+          <div class="vid-body">
+            <span class="yt" style="color:var(--blue)">▶ 開始練習</span>
+            <h3><span data-zh>全民英檢初級口說</span><span data-en>GEPT Elementary Speaking</span></h3>
+            <p><span data-zh>初級口說題型實戰示範與互動練習</span><span data-en>Elementary speaking drills & practice</span></p>
+          </div>
+        </a>
+        <a class="vid" href="gept-medium-oral.html">
+          <div class="thumb t-blue"><span class="emoji">🗣️🅱️</span><img class="peng" src="logo.png" alt=""><span class="play"></span></div>
+          <div class="vid-body">
+            <span class="yt" style="color:var(--blue)">▶ 開始練習</span>
+            <h3><span data-zh>全民英檢中級口說</span><span data-en>GEPT Intermediate Speaking</span></h3>
+            <p><span data-zh>中級口說題型實戰示範與互動練習</span><span data-en>Intermediate speaking drills & practice</span></p>
+          </div>
+        </a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -435,6 +475,16 @@
     document.querySelectorAll('.lang button').forEach(b=>b.classList.remove('on'));
     btn.classList.add('on');
   }
+
+  // 漢堡選單開關
+  const nav = document.querySelector('.nav');
+  document.querySelector('.menu-toggle').addEventListener('click', function(){
+    nav.classList.toggle('open');
+  });
+  // 點選單連結後自動關閉
+  document.querySelectorAll('nav a').forEach(function(a){
+    a.addEventListener('click', function(){ nav.classList.remove('open'); });
+  });
 </script>
 </body>
 </html>
