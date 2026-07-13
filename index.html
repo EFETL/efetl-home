@@ -198,13 +198,13 @@
   .vid-body p{font-size:13.5px;color:var(--ink-soft)}
 
   /* 聯絡 */
-  .contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px}
-  .info-list{display:flex;flex-direction:column;gap:20px;margin:26px 0 28px}
-  .info-item{display:flex;gap:15px;align-items:flex-start}
+  .contact-info{max-width:760px;margin:0 auto}
+  .info-list{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:0 0 28px}
+  .info-item{display:flex;gap:15px;align-items:flex-start;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:18px}
   .info-item .ic{width:46px;height:46px;border-radius:13px;background:var(--bg-soft);color:var(--blue);display:grid;place-items:center;font-size:20px;flex:none}
   .info-item b{display:block;font-size:16px}.info-item span{color:var(--ink-soft);font-size:14.5px}
   .info-item a{color:var(--blue);text-decoration:none;font-weight:700}
-  .contact-cta{display:flex;gap:12px;flex-wrap:wrap}
+  .contact-cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:30px}
   .btn-line{background:#06c755;color:#fff}
   .btn-tel{background:var(--blue);color:#fff}
   form{background:#fff;border:1.5px solid var(--line);border-radius:24px;padding:30px;box-shadow:var(--shadow)}
@@ -213,7 +213,7 @@
   form input,form select,form textarea{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-size:15px;font-family:inherit;color:var(--ink);background:#fbfcff;transition:.2s}
   form input:focus,form select:focus,form textarea:focus{outline:none;border-color:var(--blue);background:#fff}
   form button{width:100%;justify-content:center;margin-top:4px}
-  .map{border-radius:18px;overflow:hidden;border:1.5px solid var(--line);height:240px;margin-top:30px}
+  .map{border-radius:18px;overflow:hidden;border:1.5px solid var(--line);height:360px;margin-top:0}
   .map iframe{width:100%;height:100%;border:0;display:block}
 
   /* footer */
@@ -226,7 +226,8 @@
   @media(max-width:920px){
     .feat-grid{grid-template-columns:1fr 1fr}
     .class-grid{grid-template-columns:1fr}
-    .geft-wrap,.contact-wrap{grid-template-columns:1fr;gap:30px}
+    .geft-wrap{grid-template-columns:1fr;gap:30px}
+    .info-list{grid-template-columns:1fr}
     .vid-grid{grid-template-columns:1fr 1fr}
   }
   @media(max-width:520px){.feat-grid,.vid-grid{grid-template-columns:1fr}}
