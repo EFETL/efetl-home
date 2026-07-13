@@ -603,10 +603,9 @@
     <div class="sec-head">
       <span class="kicker" data-zh>聯絡我們</span><span class="kicker" data-en>CONTACT</span>
       <h2><span data-zh>歡迎<span class="hl">預約免費試聽</span></span><span data-en>Book a <span class="hl">free trial class</span></span></h2>
-      <p><span data-zh>留下資料或直接來電，我們會盡快與您聯繫，為孩子安排合適的課程。</span><span data-en>Leave your details or call us — we'll arrange the right class for your child.</span></p>
+      <p><span data-zh>直接來電或加 LINE，我們會盡快與您聯繫，為孩子安排合適的課程。</span><span data-en>Call us or message us on LINE — we'll arrange the right class for your child.</span></p>
     </div>
-    <div class="contact-wrap">
-      <div class="contact-info">
+    <div class="contact-info">
         <div class="info-list">
           <div class="info-item"><div class="ic">📍</div><div><b><span data-zh>補習班地址</span><span data-en>Address</span></b><span data-zh>彰化縣田尾鄉公所路159號（田尾圖書館旁）</span><span data-en>No.159, Gongsuo Rd, Tianwei, Changhua (next to Tianwei Library)</span></div></div>
           <div class="info-item"><div class="ic">📞</div><div><b><span data-zh>電話</span><span data-en>Phone</span></b><a href="tel:048833604">04-8833604</a></div></div>
@@ -621,17 +620,6 @@
           <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=彰化縣田尾鄉公所路159號 田尾圖書館&output=embed"></iframe>
         </div>
       </div>
-      <form id="contactForm">
-        <div class="field"><label><span data-zh>家長姓名</span><span data-en>Parent's name</span></label><input id="f-name" required placeholder="您的稱呼"></div>
-        <div class="field"><label><span data-zh>聯絡電話</span><span data-en>Phone</span></label><input id="f-phone" required type="tel" placeholder="09xx-xxx-xxx"></div>
-        <div class="field"><label><span data-zh>孩子年級</span><span data-en>Child's grade</span></label>
-          <select id="f-class"><option>國小正音班</option><option>國小安親班</option><option>兒童英語班</option><option>國中英語班</option><option>國中全科班</option><option>全民英檢班</option></select>
-        </div>
-        <div class="field"><label><span data-zh>想了解的內容</span><span data-en>Message</span></label><textarea id="f-msg" rows="3" placeholder="例如：想預約試聽 / 詢問班別與費用"></textarea></div>
-        <button type="submit" id="f-btn" class="btn btn-cta"><span data-zh>送出預約 →</span><span data-en>Send →</span></button>
-        <p id="f-status" style="margin-top:14px;font-weight:800;font-size:15px;text-align:center;display:none"></p>
-      </form>
-    </div>
   </div>
 </section>
 
@@ -649,40 +637,6 @@
     document.querySelectorAll('.lang button').forEach(b=>b.classList.remove('on'));
     btn.classList.add('on');
   }
-
-  // 預約表單送出 → Google 試算表 + Email 通知
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbypo-fMLw3vDdGq_xDOo_oyxtAseO_dZin4hjS7iTkhcqiZqGyLtuoQIOtLbHXCf2CJng/exec';
-  document.getElementById('contactForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    const btn = document.getElementById('f-btn');
-    const status = document.getElementById('f-status');
-    btn.disabled = true;
-    btn.textContent = '送出中…';
-    status.style.display = 'none';
-    fetch(SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({
-        name:      document.getElementById('f-name').value,
-        phone:     document.getElementById('f-phone').value,
-        classType: document.getElementById('f-class').value,
-        message:   document.getElementById('f-msg').value
-      })
-    }).then(function(){
-      status.textContent = '✅ 感謝您的預約！我們會盡快與您聯繫。';
-      status.style.color = '#21d4a8';
-      status.style.display = 'block';
-      document.getElementById('contactForm').reset();
-    }).catch(function(){
-      status.textContent = '⚠️ 送出失敗，請直接來電 04-8833604 或加 LINE 詢問。';
-      status.style.color = '#ff4757';
-      status.style.display = 'block';
-    }).finally(function(){
-      btn.disabled = false;
-      btn.innerHTML = '<span data-zh>送出預約 →</span><span data-en>Send →</span>';
-    });
-  });
 
   // 漢堡選單開關
   const nav = document.querySelector('.nav');
