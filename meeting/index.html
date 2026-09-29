@@ -147,12 +147,19 @@ textarea{width:100%;min-height:120px;border:1px solid var(--line);background:var
     <h2>老師您好</h2>
     <p>第一次使用請填一次，這台手機或電腦之後會記住。</p>
     <form id="gateForm">
-      <label for="gName">您的稱呼</label>
-      <input class="input" id="gName" list="knownNames" autocomplete="name" placeholder="例如：王老師" maxlength="30" required>
-      <datalist id="knownNames"></datalist>
-      <label for="gPass">通關密語</label>
-      <input class="input" id="gPass" type="password" autocomplete="current-password" placeholder="LINE 群組裡公告的那組" required>
-      <button class="btn primary" type="submit" id="gateBtn">進入會議室</button>
+      <div id="stepPass">
+        <label for="gPass">通關密語</label>
+        <input class="input" id="gPass" type="password" autocomplete="current-password" placeholder="LINE 群組裡公告的那組">
+      </div>
+      <div id="stepName" hidden>
+        <label for="gSel">請選擇您是哪一位</label>
+        <select class="input" id="gSel"></select>
+        <div id="otherWrap" hidden>
+          <label for="gName">您的稱呼</label>
+          <input class="input" id="gName" autocomplete="name" placeholder="例如：代課王老師" maxlength="30">
+        </div>
+      </div>
+      <button class="btn primary" type="submit" id="gateBtn">下一步</button>
       <p class="err" id="gateErr" role="alert"></p>
     </form>
   </section>
@@ -282,26 +289,57 @@ async function api(action, extra = {}, a = auth) {
 }
 
 /* ---------- 登入 ---------- */
+// 登入分兩步：先輸入通關密語，再從老師名單選自己（名單不公開，驗證密語後才取得）
+let gateData = null;
+const OTHER = "__other__";
 function showGate(msg = "") {
   $("#gate").hidden = false; $("#appBody").hidden = true; $("#whoBar").hidden = true;
   $("#gateErr").textContent = msg;
-  if (auth?.name) $("#gName").value = auth.name;
+  gateData = null;
+  $("#stepPass").hidden = false; $("#stepName").hidden = true;
+  $("#gateBtn").textContent = "下一步";
 }
+function showNameStep(j, pass) {
+  gateData = { j, pass };
+  const names = arr(j.teachers);
+  $("#gSel").replaceChildren(el("option", { value: "", text: "── 請選擇 ──" }),
+    ...names.map(n => el("option", { value: n, text: n })), el("option", { value: OTHER, text: "其他（自行輸入）" }));
+  if (auth?.name) $("#gSel").value = names.includes(auth.name) ? auth.name : "";
+  $("#otherWrap").hidden = true;
+  $("#stepPass").hidden = true; $("#stepName").hidden = false;
+  $("#gateBtn").textContent = "進入會議室";
+  $("#gSel").focus();
+}
+$("#gSel").onchange = () => { $("#otherWrap").hidden = $("#gSel").value !== OTHER; if (!$("#otherWrap").hidden) $("#gName").focus(); };
 $("#gateForm").onsubmit = async e => {
   e.preventDefault();
-  const name = $("#gName").value.trim(), pass = $("#gPass").value.trim();
-  if (!name || !pass) return;
-  const a = { name, pass, device: auth?.device || newDevice() };
-  $("#gateBtn").disabled = true; $("#gateErr").textContent = "";
+  $("#gateErr").textContent = "";
+  if (gateData) {
+    const v = $("#gSel").value, name = v === OTHER ? $("#gName").value.trim() : v;
+    if (!name) { $("#gateErr").textContent = v === OTHER ? "請輸入您的稱呼。" : "請從選單選擇您的名字。"; return; }
+    auth = { name, pass: gateData.pass, device: auth?.device || newDevice() };
+    saveAuth(auth); $("#gPass").value = "";
+    enter(gateData.j); gateData = null;
+    return;
+  }
+  const pass = $("#gPass").value.trim();
+  if (!pass) { $("#gateErr").textContent = "請輸入通關密語。"; return; }
+  const a = { pass, device: auth?.device || newDevice() };
+  $("#gateBtn").disabled = true;
   try {
-    const j = await api("list", {}, a);
-    auth = a; saveAuth(a); $("#gPass").value = "";
-    enter(j);
+    showNameStep(await api("list", {}, a), pass);
   } catch (err) {
     $("#gateErr").textContent = err?.error === "wrong_pass" ? "通關密語不對，請再確認一次 LINE 群組的公告。" : "連不上會議室，請檢查網路後再試一次。";
   } finally { $("#gateBtn").disabled = false; }
 };
-$("#logoutBtn").onclick = () => { auth = { device: auth.device }; saveAuth(auth); state.known = null; showGate(); };
+// 換人：同一台裝置保留通關密語，直接回到選名字
+$("#logoutBtn").onclick = async () => {
+  state.known = null;
+  const pass = auth.pass;
+  showGate();
+  if (!pass) return;
+  try { showNameStep(await api("list"), pass); } catch { /* 密語失效就留在輸入密語那一步 */ }
+};
 
 function enter(j) {
   $("#gate").hidden = true; $("#appBody").hidden = false; $("#whoBar").hidden = false;
@@ -350,7 +388,6 @@ function renderAll() {
   if (!state.selected || !ids.includes(state.selected)) state.selected = upcoming();
   state.unread.delete(state.selected);
   document.title = state.unread.size ? `(${state.unread.size}) 週二會議室` : "週二會議室";
-  $("#knownNames").replaceChildren(...[...new Set(state.notes.map(n => n.author))].map(v => el("option", { value: v })));
   renderList(ids); renderHead(); renderSummary(); renderComposer(ids); renderNotes();
 }
 
