@@ -264,9 +264,19 @@ function loadAuth() {
 function saveAuth(a) { try { localStorage.setItem("meeting-auth", JSON.stringify(a)); } catch {} }
 function newDevice() { return (crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2) + Date.now()).replace(/-/g, "").slice(0, 32); }
 
+// 不帶 Google 登入 cookie（多帳號登入時 Apps Script 可能回 404），讀取失敗自動重試一次
 async function api(action, extra = {}, a = auth) {
-  const r = await fetch(API, { method: "POST", body: JSON.stringify({ action, pass: a.pass, device: a.device, ...extra }) });
-  const j = await r.json();
+  const body = JSON.stringify({ action, pass: a.pass, device: a.device, ...extra });
+  let j = null;
+  for (let tries = 0; tries < 2 && !j; tries++) {
+    try {
+      const r = await fetch(API, { method: "POST", body, credentials: "omit", referrerPolicy: "no-referrer", cache: "no-store" });
+      j = await r.json();
+    } catch (e) {
+      if (tries === 1 || action !== "list") throw { error: "network" };
+      await new Promise(res => setTimeout(res, 1500));
+    }
+  }
   if (!j.ok) throw j;
   return j;
 }
