@@ -419,7 +419,7 @@ function renderSummary() {
     const n = notesOf(id).length;
     kids.push(el("p", { class: "empty" },
       el("strong", { text: n ? `已有 ${n} 筆紀錄，摘要還沒整理。` : "這次會議還沒有紀錄。" }), el("br"),
-      n ? "會後會由 Claude 把所有老師的紀錄彙整成決議、待辦、公告與各老師報告，整理好就會出現在這裡。"
+      n ? "會後會由企鵝小編把所有老師的紀錄彙整成決議、待辦、公告與各老師報告，整理好就會出現在這裡。"
         : "在下方寫下你的報告、提案或待辦。平日寫的也會自動歸到下一次週二會議。"));
   }
   box.replaceChildren(...kids);
