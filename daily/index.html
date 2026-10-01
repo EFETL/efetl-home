@@ -2,6 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>每日一字 Word of the Day ｜ 全民英語補習班</title>
 <style>
@@ -96,6 +97,10 @@
   .lvswitch button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
   .player{aspect-ratio:16/9;width:100%;border-radius:var(--radius);overflow:hidden;background:#000;box-shadow:var(--shadow)}
   .player iframe{width:100%;height:100%;border:0;display:block}
+  .ytlink{display:inline-block;margin-top:10px;font-size:14.5px;font-weight:800;color:var(--blue-deep);text-decoration:none}
+  .ytlink:hover{text-decoration:underline}
+  .ytthumb{display:grid;place-items:center;background:#000 center/cover no-repeat;text-decoration:none}
+  .ytthumb span{width:78px;height:56px;border-radius:16px;background:#ff0033;color:#fff;display:grid;place-items:center;font-size:26px}
   .tip{background:var(--yellow-soft);border-radius:14px;padding:12px 16px;margin:16px 0;font-size:15.5px}
   .next{display:flex;justify-content:flex-end;margin-top:18px}
 
@@ -316,13 +321,23 @@ const toolsBar = () => `<div class="tools">
   <button class="toggle ${document.body.classList.contains('hide-zh')?'on':''}" onclick="document.body.classList.toggle('hide-zh');this.classList.toggle('on')">🙈 ${L('遮住中文','Hide Chinese')}</button>
 </div>`;
 
+/* YouTube 播放器：網頁用嵌入（帶來源資訊，避免錯誤 153）；直接開本機檔案時無法嵌入，改顯示縮圖連結 */
+function ytPlayer(v){
+  const watch=`https://www.youtube.com/watch?v=${v}`;
+  const link=`<a class="ytlink" href="${watch}" target="_blank" rel="noopener">▶ ${L('影片播不出來？在 YouTube 開啟','Video not playing? Open on YouTube')}</a>`;
+  if(!/^https?:$/.test(location.protocol))
+    return `<a class="player ytthumb" href="${watch}" target="_blank" rel="noopener" style="background-image:url(${thumb(v)})"><span>▶</span></a>${link}`;
+  const src=`https://www.youtube-nocookie.com/embed/${v}?rel=0&playsinline=1&origin=${encodeURIComponent(location.origin)}`;
+  return `<div class="player"><iframe src="${src}" title="YouTube" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer;encrypted-media;gyroscope;picture-in-picture;web-share" allowfullscreen></iframe></div>${link}`;
+}
+
 /* ---------- 單字課 ---------- */
 let cur=null, retry=()=>route();
 function openWord(id,step){
   const w=WORDS.find(x=>x.id===id); cur={kind:'w',w,step};
   document.body.classList.add('in-lesson');
   let body='';
-  if(step===1) body=`<div class="player"><iframe src="https://www.youtube.com/embed/${w.v}?rel=0" allow="accelerometer;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div>
+  if(step===1) body=`${ytPlayer(w.v)}
      <div class="tip">👀 ${L(`看影片時注意：<b>${esc(w.w)}</b> 出現在哪裡？影片會把每個句子念兩次，試著跟著小聲念。`,`While watching, notice where <b>${esc(w.w)}</b> appears. Each sentence is read twice — try saying it along.`)}</div>
      <div class="next"><button class="btn" onclick="openWord('${id}',2)">${L('下一步：聽＋跟讀 →','Next: Listen →')}</button></div>`;
   if(step===2){
@@ -368,7 +383,7 @@ function openTalk(id,step=1){
   const t=TALKS.find(x=>x.id===id); const lv=talkLv[id]||(t.lv.basic?'basic':'adv'); const D=t.lv[lv];
   document.body.classList.add('in-lesson');
   let body='';
-  if(step===1) body=`<div class="player"><iframe src="https://www.youtube.com/embed/${D.v}?rel=0" allow="accelerometer;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div>
+  if(step===1) body=`${ytPlayer(D.v)}
      <div class="tip">👀 ${L('先只用耳朵聽，猜猜他們在聊什麼。下一步會有完整的英文和中文。','Just listen first and guess what they are talking about. The next step shows every line.')}</div>
      <div class="next"><button class="btn" onclick="openTalk('${id}',2)">${L('下一步：聽＋跟讀 →','Next: Listen →')}</button></div>`;
   if(step===2) body=`${toolsBar()}

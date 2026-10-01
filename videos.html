@@ -2,6 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>影音教學 ｜ 全民英語補習班</title>
 <style>
@@ -143,7 +144,7 @@
 <div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
   <div class="modal-box">
     <div class="modal-top"><b id="modalTitle"></b><button class="modal-close" onclick="closeModal()">✕</button></div>
-    <div class="modal-video"><iframe id="player" src="" title="影音播放" allow="accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div>
+    <div class="modal-video"><iframe referrerpolicy="strict-origin-when-cross-origin" id="player" src="" title="影音播放" allow="accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div>
   </div>
 </div>
 
