@@ -183,6 +183,7 @@
   };
 
   function qs(k){return new URLSearchParams(location.search).get(k)}
+  if((qs('id')||'daily')==='daily'){ location.replace('daily/'); }
   let CAT = CATS[qs('id')] || CATS.daily;
 
   document.getElementById('hTitle').textContent=CAT.zh;
