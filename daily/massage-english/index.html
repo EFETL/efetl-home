@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Massage English 按摩英文</title>
+<meta name="description" content="去泰國、越南按摩用得到的英文句子：力道、哪裡不舒服、再按一次、付款小費。附真人級發音與互動練習。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --main:#2a7f74; --main-dark:#1d5f57; --main-soft:#e3f2ef;
+  --accent:#e08a4c; --accent-soft:#fcefe4;
+  --bg:#fbf7f1; --card:#ffffff; --ink:#26302e; --muted:#5f6b68; --line:#e6e0d6;
+  --ok:#2e9d5b; --bad:#d9534f;
+  --radius:20px; --shadow:0 4px 18px rgba(40,60,55,.08);
+}
+*{box-sizing:border-box}
+html{font-size:20px;scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Noto Sans TC",-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif;
+  font-size:20px;line-height:1.6;-webkit-text-size-adjust:100%}
+button{font-family:inherit;font-size:18px;cursor:pointer}
+.wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+section{padding:64px 0}
+h2{font-size:32px;margin:0 0 6px;line-height:1.3}
+h2 small{display:block;font-size:20px;color:var(--muted);font-weight:500}
+h3{font-size:24px;margin:0 0 8px}
+.lead{color:var(--muted);margin:0 0 28px}
+
+/* nav */
+nav{position:sticky;top:0;z-index:50;background:rgba(251,247,241,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:12px}
+.logo{font-weight:900;font-size:22px;color:var(--main-dark);text-decoration:none;white-space:nowrap}
+.logo span{color:var(--accent)}
+.navlinks{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.navlinks a{font-size:18px;color:var(--ink);text-decoration:none;padding:8px 12px;border-radius:999px;white-space:nowrap}
+.navlinks a:hover{background:var(--main-soft)}
+
+/* hero */
+.hero{padding:48px 0 56px}
+.hero-card{background:linear-gradient(135deg,#2a7f74 0%,#3c9a8b 55%,#e8a46f 130%);border-radius:28px;color:#fff;
+  display:grid;grid-template-columns:1.2fr 1fr;gap:20px;align-items:center;padding:44px;box-shadow:var(--shadow);overflow:hidden}
+.hero h1{font-size:44px;line-height:1.2;margin:0 0 10px}
+.hero h1 small{display:block;font-size:26px;font-weight:500;opacity:.95;margin-top:6px}
+.hero p{font-size:20px;margin:0 0 22px;opacity:.95}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.35);padding:6px 14px;border-radius:999px;font-size:18px}
+
+/* grid + cards */
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;border:1px solid var(--line)}
+.step .big{font-size:48px;line-height:1;margin-bottom:10px}
+.step .en{color:var(--main);font-weight:700;font-size:18px}
+.step p{margin:6px 0 0;color:var(--muted);font-size:18px}
+
+/* toolbar */
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:16px;scrollbar-width:thin}
+.tab{flex:0 0 auto;border:2px solid var(--line);background:#fff;border-radius:999px;padding:8px 16px;font-size:18px;color:var(--ink)}
+.tab.on{background:var(--main);border-color:var(--main);color:#fff}
+.tools{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px}
+.tbtn{border:2px solid var(--main);background:#fff;color:var(--main-dark);border-radius:14px;padding:8px 14px;font-weight:700}
+.tbtn.on{background:var(--main);color:#fff}
+.tbtn.play{border-color:var(--accent);color:#9a4f1b}
+.tbtn.play.on{background:var(--accent);color:#fff}
+
+/* sentence cards */
+.sgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.sent{display:flex;flex-direction:column;gap:6px;position:relative}
+.sent.playing{outline:3px solid var(--accent)}
+.who{align-self:flex-start;font-size:18px;padding:2px 12px;border-radius:999px;font-weight:700}
+.who.C{background:var(--accent-soft);color:#9a4f1b}
+.who.T{background:var(--main-soft);color:var(--main-dark)}
+.en-t{font-size:24px;font-weight:700;line-height:1.35}
+.zh-t{font-size:20px;color:var(--muted)}
+.hide-en .sent .en-t,.hide-zh .sent .zh-t{filter:blur(9px);cursor:pointer;user-select:none}
+.sent .en-t.peek,.sent .zh-t.peek{filter:none!important}
+.sbtns{display:flex;gap:10px;margin-top:6px;flex-wrap:wrap}
+.ibtn{border:none;border-radius:12px;padding:8px 14px;font-weight:700;background:var(--main-soft);color:var(--main-dark)}
+.ibtn.mic{background:var(--accent-soft);color:#9a4f1b}
+.ibtn:active{transform:scale(.96)}
+.speak-res{font-size:18px;color:var(--muted)}
+.speak-res b{color:var(--ok)}
+
+/* pressure remote */
+.remote{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.face{font-size:80px;text-align:center;line-height:1.1}
+input[type=range]{width:100%;height:36px;accent-color:var(--accent)}
+.scale-labels{display:flex;justify-content:space-between;font-size:18px;color:var(--muted)}
+.say{background:var(--bg);border-radius:16px;padding:14px 16px;margin-top:12px;text-align:center}
+.say .en-t{font-size:26px}
+.dpad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:360px;margin:10px auto 0}
+.dpad button{border:none;border-radius:16px;background:var(--main-soft);color:var(--main-dark);font-weight:700;padding:14px 6px;min-height:72px;line-height:1.25}
+.dpad button.center{background:var(--accent);color:#fff}
+.dpad button:active{transform:scale(.95)}
+
+/* body map */
+.bodywrap{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+.figure{position:relative;width:100%;max-width:380px;margin:0 auto}
+.figure img{width:100%;height:auto;display:block;border-radius:16px}
+.hot{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;border:none;border-radius:50%;background:transparent;padding:0;display:grid;place-items:center}
+.hot::after{content:"";width:20px;height:20px;border-radius:50%;background:var(--main);border:3px solid #fff;box-shadow:0 0 0 3px rgba(42,127,116,.35);animation:pulse 2s infinite}
+.hot.on::after,.hot:hover::after{background:var(--accent);box-shadow:0 0 0 6px rgba(224,138,76,.4);width:24px;height:24px}
+@keyframes pulse{50%{box-shadow:0 0 0 8px rgba(42,127,116,0)}}
+.bodysay{text-align:center;padding:18px}
+.bodysay img{width:100%;max-width:340px;aspect-ratio:1;object-fit:cover;border-radius:16px;display:block;margin:0 auto 10px}
+.partgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:28px}
+.pcard{border:2px solid var(--line);background:#fff;border-radius:18px;padding:0 0 10px;overflow:hidden;box-shadow:var(--shadow);text-align:center;line-height:1.3}
+.pcard img{width:100%;height:auto;aspect-ratio:1;object-fit:cover;display:block;margin-bottom:8px}
+.pcard b{display:block;font-size:22px;color:var(--main-dark)}
+.pcard span{font-size:18px;color:var(--muted)}
+.pcard.on{border-color:var(--accent);background:var(--accent-soft)}
+.hero-img{width:100%;height:auto;border-radius:22px;display:block;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+
+/* dialogues */
+.dlist{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+.dpick{text-align:left;border:2px solid var(--line);background:#fff;border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.dpick .flag{font-size:36px}
+.dpick b{display:block;font-size:20px;color:var(--ink)}
+.dpick span{font-size:18px;color:var(--muted)}
+.dpick.on{border-color:var(--main);background:var(--main-soft)}
+.chat{display:flex;flex-direction:column;gap:12px}
+.bub{max-width:82%;padding:12px 16px;border-radius:18px;position:relative;cursor:pointer}
+.bub.T{align-self:flex-start;background:var(--main-soft);border-top-left-radius:4px}
+.bub.C{align-self:flex-end;background:var(--accent-soft);border-top-right-radius:4px}
+.bub .nm{font-size:18px;font-weight:700;opacity:.75}
+.bub .en-t{font-size:22px}
+.bub .zh-t{font-size:18px}
+.bub.playing{outline:3px solid var(--accent)}
+.bub.yourturn .en-t{filter:blur(9px)}
+.turn{font-size:18px;font-weight:900;color:#b8561a}
+
+/* game */
+.gmodes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+.gmode{border:2px solid var(--line);background:#fff;border-radius:var(--radius);padding:18px;text-align:left;box-shadow:var(--shadow)}
+.gmode .ic{font-size:40px}
+.gmode b{display:block;font-size:20px}
+.gmode span{font-size:18px;color:var(--muted)}
+.gmode.on{border-color:var(--main);background:var(--main-soft)}
+.gbox{min-height:260px}
+.gtop{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:18px;color:var(--muted)}
+.prog{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:16px}
+.prog i{display:block;height:100%;background:var(--accent);transition:width .3s}
+.q{font-size:24px;font-weight:700;margin-bottom:14px}
+.opts{display:grid;gap:10px}
+.opt{text-align:left;border:2px solid var(--line);background:#fff;border-radius:14px;padding:12px 16px;font-size:20px;color:var(--ink)}
+.opt.ok{border-color:var(--ok);background:#e6f6ec}
+.opt.no{border-color:var(--bad);background:#fdecea}
+.slots{min-height:64px;border:2px dashed var(--main);border-radius:14px;padding:10px;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;background:var(--main-soft)}
+.pool{display:flex;flex-wrap:wrap;gap:8px}
+.w{border:none;border-radius:12px;padding:8px 14px;font-size:20px;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.08);color:var(--ink)}
+.slots .w{background:var(--main);color:#fff}
+.fb{margin-top:14px;font-size:20px;font-weight:700}
+.fb.ok{color:var(--ok)} .fb.no{color:var(--bad)}
+.next{margin-top:14px;border:none;background:var(--main);color:#fff;border-radius:14px;padding:12px 22px;font-weight:700;font-size:20px}
+.result{text-align:center}
+.result .stars{font-size:56px}
+
+/* tips + cta */
+.tips li{margin-bottom:8px}
+.cta{text-decoration:none;color:inherit;display:block;transition:transform .15s}
+.cta:hover{transform:translateY(-4px)}
+.cta .big{font-size:44px}
+.cta .go{color:var(--main);font-weight:700;font-size:18px}
+
+footer{background:#21423d;color:#e8efed;padding:44px 0;margin-top:20px}
+footer .grid3{gap:24px}
+footer h4{margin:0 0 8px;font-size:20px;color:#fff}
+footer p,footer a{font-size:18px;color:#cfe0dc;margin:0 0 6px;display:block}
+
+/* RWD */
+@media (max-width:860px){
+  .grid4{grid-template-columns:repeat(2,1fr)}
+  .grid3,.dlist,.gmodes{grid-template-columns:1fr}
+  .hero-card{grid-template-columns:1fr;padding:30px 22px}
+    .hero h1{font-size:34px}.hero h1 small{font-size:22px}
+  .sgrid,.remote,.bodywrap{grid-template-columns:1fr}
+  .partgrid{grid-template-columns:repeat(3,1fr)}
+  section{padding:44px 0}
+  h2{font-size:28px}
+}
+@media (max-width:520px){
+  .navlinks a{padding:8px 8px}
+  .logo{font-size:28px}.logo .txt{display:none}
+  .grid4{grid-template-columns:1fr}
+  .partgrid{grid-template-columns:repeat(2,1fr)}
+  .figure{max-width:300px}
+  .bub{max-width:92%}
+  .en-t{font-size:22px}
+}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="logo" href="#top">💆<span class="txt"> Massage <span>English</span></span></a>
+  <div class="navlinks">
+    <a href="#learn">學句子</a><a href="#body">身體</a><a href="#talk">對話</a><a href="#games">挑戰</a>
+  </div>
+</div></nav>
+
+<header class="hero" id="top"><div class="wrap">
+  <div class="hero-card">
+    <div>
+      <h1>Feel Better, Speak Better!<small>去泰國、越南按摩，用英文說出你的需求</small></h1>
+      <p>Harder or softer? Where does it hurt? One more time? 學會這些句子，按摩師就懂你的意思。</p>
+      <div class="chips"><span class="chip">🗣️ <span id="nSent"></span> 句實用英文</span><span class="chip">🧍 13 個身體部位</span><span class="chip">🎭 3 段情境對話</span><span class="chip">🔊 微軟真人級發音</span></div>
+    </div>
+    <div><img class="hero-img" src="img/flashcard.jpg" alt="Body Parts 身體部位 按摩字卡" width="900" height="900"></div>
+  </div>
+</div></header>
+
+<section style="padding-top:8px"><div class="wrap">
+  <h2>How to Learn<small>四步驟學會按摩英文</small></h2>
+  <p class="lead">每一句都有發音，照著下面四步驟練，出國就敢開口。</p>
+  <div class="grid4">
+    <div class="card step"><div class="big">👂</div><div class="en">Step 1 · Listen</div><h3>先聽</h3><p>點 🔊 聽發音，打開「🐢 慢速」聽清楚每個字。</p></div>
+    <div class="card step"><div class="big">🗣️</div><div class="en">Step 2 · Repeat</div><h3>跟著說</h3><p>按 🎤 跟讀，系統會聽你說了哪些字。</p></div>
+    <div class="card step"><div class="big">🙈</div><div class="en">Step 3 · Cover</div><h3>遮住考自己</h3><p>開「遮英文」只看中文，先說說看再點開對答案。</p></div>
+    <div class="card step"><div class="big">🏆</div><div class="en">Step 4 · Challenge</div><h3>挑戰遊戲</h3><p>演對話、聽力選擇、句子重組，看你拿幾顆星。</p></div>
+  </div>
+</div></section>
+
+<section id="learn"><div class="wrap">
+  <h2>Useful Sentences<small>按摩實用句・依情境分類</small></h2>
+  <p class="lead">橘色是<b>客人</b>（你）會說的話，綠色是<b>按摩師</b>可能對你說的話。</p>
+  <div class="tabs" id="tabs"></div>
+  <div class="tools">
+    <button class="tbtn play" id="playAll">▶ 連續播放本區</button>
+    <button class="tbtn" id="slowBtn">🐢 慢速</button>
+    <button class="tbtn" id="hideEnBtn">🙈 遮英文</button>
+    <button class="tbtn" id="hideZhBtn">🙉 遮中文</button>
+  </div>
+  <div class="sgrid" id="sgrid"></div>
+</div></section>
+
+<section id="remote" style="background:#fff"><div class="wrap">
+  <h2>Massage Remote Control<small>按摩遙控器・力道與位置</small></h2>
+  <p class="lead">拉拉看力道，按按看方向鍵，聽聽要怎麼跟按摩師說。</p>
+  <div class="remote">
+    <div class="card">
+      <h3>💪 Pressure 力道</h3>
+      <div class="face" id="face">🙂</div>
+      <input type="range" id="press" min="1" max="5" value="3" aria-label="力道">
+      <div class="scale-labels"><span>輕 Soft</span><span>重 Hard</span></div>
+      <div class="say" id="pressSay"></div>
+    </div>
+    <div class="card">
+      <h3>🎯 Where 位置</h3>
+      <div class="dpad" id="dpad"></div>
+      <div class="say" id="dirSay"><div class="zh-t">點方向鍵試試看</div></div>
+    </div>
+  </div>
+</div></section>
+
+<section id="body"><div class="wrap">
+  <h2>Body Parts<small>身體部位・哪裡痛就點哪裡</small></h2>
+  <p class="lead">點人形圖上的圓點或下面的圖卡，會先念單字，再念「我的＿＿痛」。</p>
+  <div class="bodywrap">
+    <div class="card"><div class="figure" id="figure"><img src="img/full.jpg" alt="全身人形圖" width="640" height="960"></div></div>
+    <div class="card say bodysay" id="bodySay" style="margin:0"><img src="img/full.jpg" alt="" style="object-fit:contain"><div class="zh-t">👈 點人形圖上的圓點，或下面的圖卡</div></div>
+  </div>
+  <div class="partgrid" id="partgrid"></div>
+</div></section>
+
+<section id="talk" style="background:#fff"><div class="wrap">
+  <h2>Role Play<small>情境對話・角色扮演</small></h2>
+  <p class="lead">先「播放全部」聽一遍；再按「我來當客人」，輪到你時英文會遮起來，請你先說，幾秒後再放正確發音。</p>
+  <div class="dlist" id="dlist"></div>
+  <div class="tools">
+    <button class="tbtn play" id="dPlay">▶ 播放全部</button>
+    <button class="tbtn" id="dRole">🎭 我來當客人</button>
+    <button class="tbtn" id="dStop">⏹ 停止</button>
+  </div>
+  <div class="card"><div class="chat" id="chat"></div></div>
+</div></section>
+
+<section id="games"><div class="wrap">
+  <h2>Challenge<small>挑戰遊戲・每回 10 題</small></h2>
+  <p class="lead">選一種遊戲開始，答對越多星星越多！</p>
+  <div class="gmodes">
+    <button class="gmode" data-m="listen"><div class="ic">🎧</div><b>聽力選意思</b><span>聽英文，選出正確中文</span></button>
+    <button class="gmode" data-m="situ"><div class="ic">🤔</div><b>情境怎麼說</b><span>看中文情境，選出英文</span></button>
+    <button class="gmode" data-m="build"><div class="ic">🧩</div><b>句子重組</b><span>點單字排出正確句子</span></button>
+  </div>
+  <div class="card gbox" id="gbox"><div class="zh-t" style="text-align:center;padding:60px 0">👆 選一種遊戲開始</div></div>
+</div></section>
+
+<section style="background:#fff"><div class="wrap">
+  <h2>Travel Tips<small>出國按摩小知識</small></h2>
+  <div class="grid3" style="margin-bottom:40px">
+    <div class="card"><h3>🙏 Be polite 有禮貌</h3><p style="font-size:18px;margin:0">句子後面加 <b>please</b>、結束說 <b>Thank you</b>，按摩師會更開心。</p></div>
+    <div class="card"><h3>🗣️ Speak up 勇敢說</h3><p style="font-size:18px;margin:0">太痛一定要馬上說 <b>Ouch! That hurts.</b>，不要忍耐。</p></div>
+    <div class="card"><h3>💵 Tips 小費</h3><p style="font-size:18px;margin:0">在泰國、越南，按摩後給一點小費很常見，可以說 <b>This tip is for you.</b></p></div>
+  </div>
+  <h2>What's Next?<small>下一步</small></h2>
+  <div class="grid3" style="margin-top:20px">
+    <a class="card cta" href="#learn"><div class="big">📖</div><h3>Learn 學句子</h3><p style="font-size:18px;margin:0 0 6px">七大情境，<span class="nS2"></span> 句全部有發音</p><span class="go">開始學 →</span></a>
+    <a class="card cta" href="#talk"><div class="big">🎭</div><h3>Role Play 演對話</h3><p style="font-size:18px;margin:0 0 6px">當一次客人，練習開口</p><span class="go">去演練 →</span></a>
+    <a class="card cta" href="#games"><div class="big">🏆</div><h3>Challenge 挑戰</h3><p style="font-size:18px;margin:0 0 6px">三種遊戲測驗自己</p><span class="go">去挑戰 →</span></a>
+  </div>
+</div></section>
+
+<footer><div class="wrap grid3">
+  <div><h4>💆 Massage English</h4><p>按摩英文・國小國中生活英語</p><p>Travel English for Kids</p></div>
+  <div><h4>🔊 Audio 發音</h4><p>Microsoft Edge 神經語音</p><p>客人 Ava・按摩師 Andrew</p></div>
+  <div><h4>📚 EFETL</h4><a href="../">← 每日一字 Word of the Day</a><a href="https://efetl.com/">efetl.com</a><a href="#top">回到頂端 Back to top ↑</a></div>
+</div></footer>
+
+<script>
+const DATA = {"sections": [{"id": "arrive", "icon": "🚪", "en": "Arriving", "zh": "進門與預約", "items": [{"who": "C", "en": "Hi, do you have time for a massage now?", "zh": "你好，現在可以按摩嗎？"}, {"who": "C", "en": "I'd like a massage for two people.", "zh": "我們兩個人要按摩。"}, {"who": "C", "en": "Do I need to wait? How long?", "zh": "需要等嗎？要等多久？"}, {"who": "T", "en": "Please wait about ten minutes.", "zh": "請等大約十分鐘。"}, {"who": "C", "en": "Can I see the price list?", "zh": "可以看一下價目表嗎？"}, {"who": "T", "en": "Please take off your shoes.", "zh": "請脫鞋。"}, {"who": "T", "en": "Please change into these clothes.", "zh": "請換上這套衣服。"}, {"who": "C", "en": "Where can I change?", "zh": "我可以在哪裡換衣服？"}, {"who": "C", "en": "Where is the restroom?", "zh": "洗手間在哪裡？"}]}, {"id": "choose", "icon": "📋", "en": "Choosing a Massage", "zh": "選擇按摩", "items": [{"who": "C", "en": "I'd like a Thai massage, please.", "zh": "我想要泰式按摩。"}, {"who": "C", "en": "I want a foot massage.", "zh": "我想要腳底按摩。"}, {"who": "C", "en": "Can I have an oil massage?", "zh": "可以做精油按摩嗎？"}, {"who": "C", "en": "How much is a one-hour massage?", "zh": "按一小時多少錢？"}, {"who": "C", "en": "I'll take ninety minutes.", "zh": "我要九十分鐘。"}, {"who": "C", "en": "What's the difference between these two?", "zh": "這兩種有什麼不一樣？"}, {"who": "C", "en": "Can I have a female therapist?", "zh": "可以安排女按摩師嗎？"}, {"who": "T", "en": "Which oil do you like?", "zh": "你喜歡哪一種精油？"}, {"who": "C", "en": "I'd like the lavender one.", "zh": "我要薰衣草的。"}, {"who": "C", "en": "Can children get a massage too?", "zh": "小孩也可以按摩嗎？"}]}, {"id": "pressure", "icon": "💪", "en": "Pressure", "zh": "力道調整", "items": [{"who": "T", "en": "Is the pressure okay?", "zh": "這個力道可以嗎？"}, {"who": "C", "en": "A little harder, please.", "zh": "請大力一點。"}, {"who": "C", "en": "Stronger, please.", "zh": "請再用力一點。"}, {"who": "C", "en": "A little softer, please.", "zh": "請輕一點。"}, {"who": "C", "en": "Gently, please.", "zh": "請輕輕的。"}, {"who": "C", "en": "That's too hard.", "zh": "太用力了。"}, {"who": "C", "en": "Ouch! That hurts.", "zh": "唉唷！好痛。"}, {"who": "C", "en": "The pressure is just right.", "zh": "這個力道剛剛好。"}, {"who": "C", "en": "That feels great.", "zh": "好舒服。"}, {"who": "C", "en": "I'm ticklish.", "zh": "我怕癢。"}, {"who": "T", "en": "Tell me if it hurts.", "zh": "會痛的話要跟我說。"}, {"who": "C", "en": "Not too hard on my legs, please.", "zh": "腿請不要太用力。"}]}, {"id": "body", "icon": "🤕", "en": "Where It Hurts", "zh": "哪裡不舒服", "items": [{"who": "T", "en": "Where do you feel uncomfortable?", "zh": "你哪裡不舒服？"}, {"who": "C", "en": "My shoulders are very stiff.", "zh": "我的肩膀很僵硬。"}, {"who": "C", "en": "My neck hurts.", "zh": "我的脖子痛。"}, {"who": "C", "en": "I have a backache.", "zh": "我背痛。"}, {"who": "C", "en": "My lower back is sore.", "zh": "我的下背很痠。"}, {"who": "C", "en": "My legs are tired from walking.", "zh": "我走路走到腿好累。"}, {"who": "C", "en": "My feet are sore.", "zh": "我的腳很痠。"}, {"who": "C", "en": "I have a headache.", "zh": "我頭痛。"}, {"who": "C", "en": "I sit at a desk all day.", "zh": "我整天坐在書桌前。"}, {"who": "C", "en": "I hurt my ankle last month.", "zh": "我上個月扭傷腳踝。"}, {"who": "C", "en": "Please don't touch my left knee.", "zh": "請不要碰我的左膝蓋。"}, {"who": "C", "en": "I have a sunburn on my back.", "zh": "我的背曬傷了。"}]}, {"id": "focus", "icon": "🎯", "en": "More Here, Please", "zh": "加強與再一次", "items": [{"who": "C", "en": "Can you do my shoulders again?", "zh": "可以再按一次我的肩膀嗎？"}, {"who": "C", "en": "Please spend more time on my back.", "zh": "背部請多按一點時間。"}, {"who": "C", "en": "Please focus on my neck and shoulders.", "zh": "請集中按我的脖子和肩膀。"}, {"who": "C", "en": "Right there!", "zh": "就是那裡！"}, {"who": "C", "en": "A little higher, please.", "zh": "請再上面一點。"}, {"who": "C", "en": "A little lower, please.", "zh": "請再下面一點。"}, {"who": "C", "en": "A little to the left.", "zh": "再左邊一點。"}, {"who": "C", "en": "A little to the right.", "zh": "再右邊一點。"}, {"who": "C", "en": "One more time, please.", "zh": "請再一次。"}, {"who": "C", "en": "You can skip my legs.", "zh": "腿可以不用按。"}, {"who": "C", "en": "Please don't massage my face.", "zh": "請不要按我的臉。"}]}, {"id": "comfort", "icon": "🛏️", "en": "Staying Comfortable", "zh": "姿勢與舒適", "items": [{"who": "T", "en": "Please lie on your stomach.", "zh": "請趴下。"}, {"who": "T", "en": "Please lie on your back.", "zh": "請躺平（臉朝上）。"}, {"who": "T", "en": "Please turn over.", "zh": "請翻身。"}, {"who": "T", "en": "Please sit up.", "zh": "請坐起來。"}, {"who": "T", "en": "Are you comfortable?", "zh": "你舒服嗎？"}, {"who": "C", "en": "I'm a little cold.", "zh": "我有點冷。"}, {"who": "C", "en": "Can you turn down the air conditioner?", "zh": "冷氣可以調小一點嗎？"}, {"who": "C", "en": "It's too hot in here.", "zh": "這裡太熱了。"}, {"who": "C", "en": "Can I have another pillow?", "zh": "可以再給我一個枕頭嗎？"}, {"who": "C", "en": "Can you turn down the music?", "zh": "音樂可以小聲一點嗎？"}, {"who": "C", "en": "Can I have some water?", "zh": "可以給我一點水嗎？"}, {"who": "C", "en": "I'm allergic to this oil.", "zh": "我對這種精油過敏。"}]}, {"id": "pay", "icon": "💰", "en": "Finishing & Paying", "zh": "結束與付款", "items": [{"who": "T", "en": "We're all done.", "zh": "按摩結束了。"}, {"who": "T", "en": "Would you like some tea?", "zh": "要喝點茶嗎？"}, {"who": "C", "en": "Thank you. I feel much better.", "zh": "謝謝，我覺得好多了。"}, {"who": "C", "en": "How much is it?", "zh": "多少錢？"}, {"who": "C", "en": "Can I pay by credit card?", "zh": "可以刷卡嗎？"}, {"who": "C", "en": "I'll pay in cash.", "zh": "我付現金。"}, {"who": "C", "en": "This tip is for you.", "zh": "這是給你的小費。"}, {"who": "C", "en": "Keep the change.", "zh": "不用找錢了。"}, {"who": "C", "en": "You did a great job!", "zh": "你按得很好！"}, {"who": "C", "en": "I'll come back again.", "zh": "我會再來的。"}]}], "body": [{"id": "head", "en": "head", "zh": "頭", "s": "My head hurts."}, {"id": "neck", "en": "neck", "zh": "脖子", "s": "My neck hurts."}, {"id": "shoulder", "en": "shoulder", "zh": "肩膀", "s": "My shoulder hurts."}, {"id": "arm", "en": "arm", "zh": "手臂", "s": "My arm hurts."}, {"id": "hand", "en": "hand", "zh": "手", "s": "My hand hurts."}, {"id": "back", "en": "back", "zh": "背", "s": "My back hurts."}, {"id": "waist", "en": "waist", "zh": "腰", "s": "My waist hurts."}, {"id": "hip", "en": "hip", "zh": "臀部", "s": "My hip hurts."}, {"id": "thigh", "en": "thigh", "zh": "大腿", "s": "My thigh hurts."}, {"id": "knee", "en": "knee", "zh": "膝蓋", "s": "My knee hurts."}, {"id": "calf", "en": "calf", "zh": "小腿", "s": "My calf hurts."}, {"id": "ankle", "en": "ankle", "zh": "腳踝", "s": "My ankle hurts."}, {"id": "foot", "en": "foot", "zh": "腳", "s": "My foot hurts."}], "dialogues": [{"id": "d1", "icon": "🇹🇭", "en": "Foot Massage in Thailand", "zh": "在泰國做腳底按摩", "lines": [{"who": "T", "en": "Hello! Foot massage or Thai massage?", "zh": "你好！要腳底按摩還是泰式按摩？"}, {"who": "C", "en": "Foot massage, please. How much is one hour?", "zh": "腳底按摩，一小時多少錢？"}, {"who": "T", "en": "Three hundred baht.", "zh": "三百泰銖。"}, {"who": "C", "en": "Okay. I'll take one hour.", "zh": "好，我要一小時。"}, {"who": "T", "en": "Please sit here. Is the pressure okay?", "zh": "請坐這裡。這個力道可以嗎？"}, {"who": "C", "en": "A little harder, please.", "zh": "請大力一點。"}, {"who": "T", "en": "How about now?", "zh": "現在呢？"}, {"who": "C", "en": "That's just right. Thank you!", "zh": "剛剛好，謝謝！"}]}, {"id": "d2", "icon": "🇻🇳", "en": "Stiff Shoulders in Vietnam", "zh": "在越南按肩頸", "lines": [{"who": "T", "en": "Where do you feel uncomfortable?", "zh": "你哪裡不舒服？"}, {"who": "C", "en": "My neck and shoulders are very stiff.", "zh": "我的脖子和肩膀很僵硬。"}, {"who": "T", "en": "Okay. Please lie on your stomach.", "zh": "好的，請趴下。"}, {"who": "C", "en": "Ouch! That's too hard.", "zh": "唉唷！太用力了。"}, {"who": "T", "en": "Sorry. Is this better?", "zh": "抱歉，這樣有比較好嗎？"}, {"who": "C", "en": "Yes, much better. Can you do my shoulders again?", "zh": "有，好多了。可以再按一次肩膀嗎？"}, {"who": "T", "en": "Sure. Right here?", "zh": "沒問題。是這裡嗎？"}, {"who": "C", "en": "Right there! That feels great.", "zh": "就是那裡！好舒服。"}]}, {"id": "d3", "icon": "💵", "en": "Paying the Bill", "zh": "按完結帳", "lines": [{"who": "T", "en": "We're all done. How do you feel?", "zh": "按摩結束了，感覺怎麼樣？"}, {"who": "C", "en": "I feel much better. How much is it?", "zh": "我覺得好多了。多少錢？"}, {"who": "T", "en": "Five hundred thousand dong.", "zh": "五十萬越南盾。"}, {"who": "C", "en": "Can I pay by credit card?", "zh": "可以刷卡嗎？"}, {"who": "T", "en": "Sorry, cash only.", "zh": "抱歉，只收現金。"}, {"who": "C", "en": "No problem. Here you are. And this tip is for you.", "zh": "沒問題，給你。這是給你的小費。"}, {"who": "T", "en": "Thank you so much! Please come again.", "zh": "非常謝謝你！歡迎再來。"}, {"who": "C", "en": "I will. Bye!", "zh": "我會的，掰掰！"}]}]};
+const A = "audio/";
+const $ = s => document.querySelector(s);
+const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; };
+
+// ---------- audio ----------
+const player = new Audio();
+let slow = false, queueToken = 0;
+function play(file) {
+  return new Promise(res => {
+    player.onended = player.onerror = () => res();
+    player.src = A + file;
+    player.playbackRate = slow ? 0.75 : 1;
+    player.play().catch(() => res());
+  });
+}
+function stopAll() { queueToken++; player.pause(); document.querySelectorAll(".playing").forEach(e => e.classList.remove("playing")); }
+const wait = ms => new Promise(r => setTimeout(r, ms));
+
+// ---------- all sentences ----------
+const ALL = [];
+DATA.sections.forEach(s => s.items.forEach((it, i) => ALL.push({ ...it, sec: s.id, file: `s-${s.id}-${String(i + 1).padStart(2, "0")}.mp3` })));
+$("#nSent").textContent = ALL.length;
+document.querySelectorAll(".nS2").forEach(e => e.textContent = ALL.length);
+const ROLE = { C: "客人 Customer", T: "按摩師 Therapist" };
+const byEn = en => ALL.find(x => x.en === en);
+
+// ---------- learn ----------
+let cur = DATA.sections[0].id;
+function renderTabs() {
+  $("#tabs").innerHTML = DATA.sections.map(s => `<button class="tab${s.id === cur ? " on" : ""}" data-id="${s.id}">${s.icon} ${s.zh}</button>`).join("");
+}
+function renderSents() {
+  const s = DATA.sections.find(x => x.id === cur);
+  $("#sgrid").innerHTML = ALL.filter(x => x.sec === cur).map(x => `
+    <div class="card sent" data-f="${x.file}">
+      <span class="who ${x.who}">${ROLE[x.who]}</span>
+      <div class="en-t">${esc(x.en)}</div>
+      <div class="zh-t">${x.zh}</div>
+      <div class="sbtns"><button class="ibtn" data-act="play">🔊 聽</button>${SR ? `<button class="ibtn mic" data-act="mic">🎤 跟讀</button>` : ""}</div>
+      <div class="speak-res"></div>
+    </div>`).join("");
+}
+$("#tabs").onclick = e => { const b = e.target.closest(".tab"); if (!b) return; stopAll(); cur = b.dataset.id; renderTabs(); renderSents(); };
+$("#sgrid").onclick = e => {
+  const t = e.target;
+  if (t.matches(".en-t,.zh-t")) { t.classList.toggle("peek"); return; }
+  const b = t.closest(".ibtn"); if (!b) return;
+  const card = b.closest(".sent");
+  if (b.dataset.act === "play") { stopAll(); card.classList.add("playing"); play(card.dataset.f).then(() => card.classList.remove("playing")); }
+  else listen(card);
+};
+$("#playAll").onclick = async () => {
+  stopAll(); const tok = queueToken;
+  $("#playAll").classList.add("on");
+  for (const card of document.querySelectorAll("#sgrid .sent")) {
+    if (tok !== queueToken) break;
+    card.classList.add("playing"); card.scrollIntoView({ block: "center", behavior: "smooth" });
+    await play(card.dataset.f); card.classList.remove("playing");
+    if (tok !== queueToken) break;
+    await wait(1600); // 留時間跟著唸
+  }
+  $("#playAll").classList.remove("on");
+};
+$("#slowBtn").onclick = function () { slow = !slow; this.classList.toggle("on", slow); player.playbackRate = slow ? 0.75 : 1; };
+$("#hideEnBtn").onclick = function () { document.body.classList.toggle("hide-en"); this.classList.toggle("on"); };
+$("#hideZhBtn").onclick = function () { document.body.classList.toggle("hide-zh"); this.classList.toggle("on"); };
+
+// ---------- speech recognition (跟讀) ----------
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+const norm = s => s.toLowerCase().replace(/[^a-z' ]/g, " ").split(/\s+/).filter(Boolean);
+function listen(card) {
+  stopAll();
+  const res = card.querySelector(".speak-res");
+  const target = norm(card.querySelector(".en-t").textContent);
+  const r = new SR(); r.lang = "en-US"; r.maxAlternatives = 3;
+  res.textContent = "🎙️ 請說…";
+  r.onresult = ev => {
+    let best = 0, heard = "";
+    for (const alt of ev.results[0]) {
+      const said = norm(alt.transcript);
+      const hit = target.filter(w => said.includes(w)).length / target.length;
+      if (hit >= best) { best = hit; heard = alt.transcript; }
+    }
+    const pct = Math.round(best * 100);
+    res.innerHTML = `我聽到：「${esc(heard)}」　<b>${pct >= 90 ? "🌟 太棒了！" : pct >= 60 ? "👍 不錯！" : "💪 再試一次"} ${pct}%</b>`;
+  };
+  r.onerror = () => res.textContent = "沒聽到聲音，請允許麥克風後再試一次。";
+  r.start();
+}
+
+// ---------- remote ----------
+const PRESS = [
+  ["😌", "Gently, please."], ["🙂", "A little softer, please."], ["😊", "The pressure is just right."],
+  ["😤", "A little harder, please."], ["💪", "Stronger, please."]
+];
+function sayBox(el, x) { el.innerHTML = `<div class="en-t">${esc(x.en)}</div><div class="zh-t">${x.zh}</div>`; }
+$("#press").oninput = e => { const [f, en] = PRESS[e.target.value - 1]; $("#face").textContent = f; sayBox($("#pressSay"), byEn(en)); };
+$("#press").onchange = e => { stopAll(); play(byEn(PRESS[e.target.value - 1][1]).file); };
+$("#face").textContent = PRESS[2][0]; sayBox($("#pressSay"), byEn(PRESS[2][1]));
+const DIRS = [
+  ["", ""], ["⬆️<br>上面一點", "A little higher, please."], ["", ""],
+  ["⬅️<br>左邊一點", "A little to the left."], ["🎯<br>就是那裡", "Right there!"], ["➡️<br>右邊一點", "A little to the right."],
+  ["🔁<br>再一次", "One more time, please."], ["⬇️<br>下面一點", "A little lower, please."], ["😖<br>好痛", "Ouch! That hurts."]
+];
+$("#dpad").innerHTML = DIRS.map(([l, en], i) => en ? `<button class="${i === 4 ? "center" : ""}" data-en="${esc(en)}">${l}</button>` : `<span></span>`).join("");
+$("#dpad").onclick = e => { const b = e.target.closest("button"); if (!b) return; const x = byEn(b.dataset.en); sayBox($("#dirSay"), x); stopAll(); play(x.file); };
+
+// ---------- body ----------
+// 人形圖上的圓點位置（%）：[部位, 左, 上]
+const DOTS = [["head",48.4,17],["neck",48.8,32.5],["shoulder",34.5,37.5],["shoulder",63.5,37.5],["back",48.8,45],
+  ["arm",66.5,47],["hand",22,59.5],["hand",76,59.5],["waist",48.8,54.5],["hip",63,60],["thigh",41,66.5],
+  ["knee",40.3,75],["knee",58,75],["calf",59,82],["ankle",38.5,88],["foot",64,92.5]];
+$("#figure").insertAdjacentHTML("beforeend", DOTS.map(([id, x, y]) => {
+  const b = DATA.body.find(v => v.id === id);
+  return `<button class="hot" data-p="${id}" style="left:${x}%;top:${y}%" aria-label="${b.en} ${b.zh}"></button>`;
+}).join(""));
+$("#partgrid").innerHTML = DATA.body.map(b => `<button class="pcard" data-p="${b.id}"><img src="img/${b.id}.jpg" alt="${b.en} ${b.zh}" loading="lazy" width="600" height="600"><b>${b.en}</b><span>${b.zh}</span></button>`).join("");
+async function pickPart(id, fromGrid) {
+  const b = DATA.body.find(x => x.id === id); if (!b) return;
+  document.querySelectorAll(".hot.on,.pcard.on").forEach(e => e.classList.remove("on"));
+  document.querySelectorAll(`.hot[data-p="${id}"],.pcard[data-p="${id}"]`).forEach(e => e.classList.add("on"));
+  $("#bodySay").innerHTML = `<img src="img/${id}.jpg" alt="${b.en}"><div class="en-t" style="font-size:34px;color:var(--main-dark)">${b.en}</div><div class="zh-t">${b.zh}</div>
+    <div class="en-t" style="margin-top:8px">${b.s}</div><div class="zh-t">我的${b.zh}痛。</div>
+    <button class="ibtn" style="margin-top:10px" id="bodyAgain">🔊 再聽一次</button>`;
+  $("#bodyAgain").onclick = () => pickPart(id);
+  if (fromGrid && innerWidth < 860) $("#bodySay").scrollIntoView({ block: "center", behavior: "smooth" });
+  stopAll(); const tok = queueToken;
+  await play(`b-${id}-w.mp3`); if (tok !== queueToken) return;
+  await wait(400); if (tok !== queueToken) return;
+  play(`b-${id}-s.mp3`);
+}
+document.addEventListener("click", e => { const p = e.target.closest(".hot[data-p], .pcard[data-p]"); if (p) pickPart(p.dataset.p, p.classList.contains("pcard")); });
+
+// ---------- dialogues ----------
+let curD = DATA.dialogues[0].id;
+$("#dlist").innerHTML = DATA.dialogues.map(d => `<button class="dpick" data-id="${d.id}"><div class="flag">${d.icon}</div><b>${d.en}</b><span>${d.zh}</span></button>`).join("");
+function renderChat() {
+  document.querySelectorAll(".dpick").forEach(b => b.classList.toggle("on", b.dataset.id === curD));
+  const d = DATA.dialogues.find(x => x.id === curD);
+  $("#chat").innerHTML = d.lines.map((l, i) => `<div class="bub ${l.who}" data-f="${d.id}-${String(i + 1).padStart(2, "0")}.mp3">
+    <div class="nm">${l.who === "C" ? "🧑 客人" : "💆 按摩師"}</div><div class="en-t">${esc(l.en)}</div><div class="zh-t">${l.zh}</div></div>`).join("");
+}
+$("#dlist").onclick = e => { const b = e.target.closest(".dpick"); if (!b) return; stopAll(); curD = b.dataset.id; renderChat(); };
+$("#chat").onclick = e => { const b = e.target.closest(".bub"); if (!b) return; stopAll(); b.classList.remove("yourturn"); b.classList.add("playing"); play(b.dataset.f).then(() => b.classList.remove("playing")); };
+async function runDialogue(role) {
+  stopAll(); renderChat(); const tok = queueToken;
+  const btn = role ? $("#dRole") : $("#dPlay"); btn.classList.add("on");
+  for (const b of document.querySelectorAll("#chat .bub")) {
+    if (tok !== queueToken) break;
+    b.scrollIntoView({ block: "center", behavior: "smooth" });
+    if (role && b.classList.contains("C")) {
+      b.classList.add("yourturn");
+      const nm = b.querySelector(".nm");
+      for (let s = 5; s > 0; s--) { nm.innerHTML = `<span class="turn">🎤 換你說！ ${s}</span>`; await wait(1000); if (tok !== queueToken) break; }
+      nm.textContent = "🧑 客人"; b.classList.remove("yourturn");
+      if (tok !== queueToken) break;
+    }
+    b.classList.add("playing"); await play(b.dataset.f); b.classList.remove("playing");
+    await wait(500);
+  }
+  btn.classList.remove("on");
+}
+$("#dPlay").onclick = () => runDialogue(false);
+$("#dRole").onclick = () => runDialogue(true);
+$("#dStop").onclick = () => { stopAll(); renderChat(); $("#dPlay").classList.remove("on"); $("#dRole").classList.remove("on"); };
+
+// ---------- games ----------
+let G = null;
+document.querySelectorAll(".gmode").forEach(b => b.onclick = () => {
+  document.querySelectorAll(".gmode").forEach(x => x.classList.toggle("on", x === b));
+  startGame(b.dataset.m); $("#gbox").scrollIntoView({ block: "start", behavior: "smooth" });
+});
+function startGame(mode) {
+  let pool = ALL.slice();
+  if (mode === "situ") pool = pool.filter(x => x.who === "C");
+  if (mode === "build") pool = pool.filter(x => { const n = x.en.split(" ").length; return n >= 3 && n <= 8; });
+  G = { mode, qs: shuffle(pool).slice(0, 10), i: 0, score: 0 };
+  showQ();
+}
+function head() {
+  return `<div class="gtop"><span>第 ${G.i + 1} / ${G.qs.length} 題</span><span>⭐ ${G.score}</span></div><div class="prog"><i style="width:${G.i / G.qs.length * 100}%"></i></div>`;
+}
+function showQ() {
+  if (G.i >= G.qs.length) return showResult();
+  const q = G.qs[G.i], box = $("#gbox");
+  if (G.mode === "listen") {
+    const opts = shuffle([q, ...shuffle(ALL.filter(x => x.zh !== q.zh)).slice(0, 3)]);
+    box.innerHTML = head() + `<div class="q">🎧 聽聽看，這句是什麼意思？ <button class="ibtn" id="again">🔊 再聽一次</button></div>
+      <div class="opts">${opts.map(o => `<button class="opt" data-ok="${o === q}">${o.zh}</button>`).join("")}</div><div id="after"></div>`;
+    $("#again").onclick = () => play(q.file); stopAll(); play(q.file);
+  } else if (G.mode === "situ") {
+    const others = ALL.filter(x => x.who === "C" && x.en !== q.en && x.sec === q.sec);
+    const opts = shuffle([q, ...shuffle(others.length >= 3 ? others : ALL.filter(x => x.en !== q.en)).slice(0, 3)]);
+    box.innerHTML = head() + `<div class="q">🤔 你想說「${q.zh}」，英文要怎麼說？</div>
+      <div class="opts">${opts.map(o => `<button class="opt" data-ok="${o === q}">${esc(o.en)}</button>`).join("")}</div><div id="after"></div>`;
+  } else {
+    const words = q.en.split(" ");
+    let order = shuffle(words.map((w, i) => i)); if (order.every((v, i) => v === i)) order.reverse();
+    box.innerHTML = head() + `<div class="q">🧩 把單字排成：「${q.zh}」</div>
+      <div class="slots" id="slots"></div><div class="pool" id="pool">${order.map(i => `<button class="w" data-i="${i}">${esc(words[i])}</button>`).join("")}</div>
+      <button class="next" id="check" style="background:var(--accent)">✔ 檢查</button><div id="after"></div>`;
+    $("#pool").onclick = e => { const w = e.target.closest(".w"); if (w) $("#slots").appendChild(w); };
+    $("#slots").onclick = e => { const w = e.target.closest(".w"); if (w) $("#pool").appendChild(w); };
+    $("#check").onclick = () => {
+      const ans = [...$("#slots").children].map(w => w.textContent).join(" ");
+      if ($("#pool").children.length) { $("#after").innerHTML = `<div class="fb no">還有單字沒排完喔！</div>`; return; }
+      $("#check").remove(); $("#pool").onclick = $("#slots").onclick = null;
+      feedback(ans === q.en, q);
+    };
+    return;
+  }
+  box.querySelector(".opts").onclick = e => {
+    const b = e.target.closest(".opt"); if (!b || box.querySelector(".opt.ok")) return;
+    box.querySelectorAll(".opt").forEach(o => { if (o.dataset.ok === "true") o.classList.add("ok"); });
+    if (b.dataset.ok !== "true") b.classList.add("no");
+    feedback(b.dataset.ok === "true", q);
+  };
+}
+function feedback(ok, q) {
+  if (ok) G.score++;
+  $("#after").innerHTML = `<div class="fb ${ok ? "ok" : "no"}">${ok ? "✅ 答對了！" : "❌ 再記一下："}</div>
+    <div style="margin-top:6px"><div class="en-t">${esc(q.en)}</div><div class="zh-t">${q.zh}</div></div>
+    <button class="next" id="nextQ">${G.i + 1 >= G.qs.length ? "看成績 🏁" : "下一題 →"}</button>`;
+  stopAll(); play(q.file);
+  $("#nextQ").onclick = () => { G.i++; showQ(); };
+}
+function showResult() {
+  const s = G.score, stars = s >= 9 ? 3 : s >= 6 ? 2 : s >= 3 ? 1 : 0;
+  $("#gbox").innerHTML = `<div class="result"><div class="stars">${"⭐".repeat(stars) || "💪"}</div>
+    <h3>${s} / ${G.qs.length} 題答對</h3><p class="zh-t">${stars === 3 ? "太厲害了！可以出國按摩了！" : stars === 2 ? "很棒！再練一次拿滿分！" : "多聽幾次句子，再來挑戰！"}</p>
+    <button class="next" id="again2">🔁 再玩一次</button></div>`;
+  $("#again2").onclick = () => startGame(G.mode);
+}
+
+renderTabs(); renderSents(); renderChat();
+</script>
+</body>
+</html>
