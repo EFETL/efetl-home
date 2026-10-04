@@ -284,5 +284,6 @@ const TALKS = [
 // 非影片的互動頁（例如「按摩英文」），格式：{title, href, thumb?, desc?}
 const EXTRAS = [
   {title:"按摩英文 Massage English", href:"massage-english/", thumb:"massage-english/img/flashcard.jpg", desc:"旅遊按摩實用句・發音＋對話＋挑戰"},
-  {title:"選舉字彙 Election Words", href:"election/", thumb:"election/img/hero.jpg", desc:"國小到高中 52 字・字卡＋發音＋小測驗"}
+  {title:"選舉字彙 Election Words", href:"election/", thumb:"election/img/hero.jpg", desc:"國小到高中 52 字・字卡＋發音＋小測驗"},
+  {title:"台灣餐桌上的蔬菜 Vegetables", href:"vegetables/", desc:"47 種蔬菜・KK 音標＋發音＋常見菜餚"}
 ];
