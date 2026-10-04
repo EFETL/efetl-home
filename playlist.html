@@ -69,7 +69,17 @@
 
   footer{background:var(--ink);color:#cdd7ea;padding:36px 24px;text-align:center}
   footer p{font-size:13px;opacity:.8}
-  @media(max-width:760px){.qlist{grid-template-columns:1fr}}
+  .qlist.thumbs{grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:18px}
+  .qrow.tcard{flex-direction:column;align-items:stretch;gap:0;padding:0;overflow:hidden;border-radius:18px}
+  .qrow.tcard::after{display:none}
+  .tcard .tthumb{position:relative;aspect-ratio:9/16;background:#fff3cd}
+  .tcard .tthumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .tcard .tthumb .tplay{position:absolute;right:10px;bottom:10px;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.92);box-shadow:0 8px 20px rgba(0,0,0,.25);display:grid;place-items:center}
+  .tcard .tthumb .tplay::after{content:"";border-left:18px solid var(--red);border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:4px}
+  .tcard .tthumb .tep{position:absolute;left:10px;top:10px;background:#6e34d6;color:#fff;font-weight:900;font-size:13px;padding:3px 10px;border-radius:999px}
+  .tcard .tthumb .tsoon{position:absolute;left:0;right:0;bottom:0;background:rgba(22,35,61,.75);color:#fff;font-size:13px;font-weight:800;text-align:center;padding:6px}
+  .tcard .qt{padding:12px 14px 14px;font-size:14.5px;line-height:1.45}
+  @media(max-width:760px){.qlist{grid-template-columns:1fr}.qlist.thumbs{grid-template-columns:1fr 1fr;gap:12px}}
   [data-en]{display:none}
   body.en [data-zh]{display:none}
   body.en [data-en]{display:revert}
@@ -184,20 +194,20 @@
       {n:9,title:"全民英語補習班歡慶20週年",video:"l8awfw8XmYM"},
       {n:10,title:"全民20週年-快樂天堂",video:"uutRFXGQX4I"}
     ]},
-    jokes:{zh:"全民企鵝冷笑話學英文",en:"Penguin Puns English",pl:"PLNR_pfJWvwNA",vertical:true,items:[
-      {n:1,title:"EP.1 Why is 6 afraid of 7?（7 ATE 9）",video:"rlDbDQ3kYBQ",
+    jokes:{zh:"全民企鵝冷笑話學英文",en:"Penguin Puns English",pl:"PLNR_pfJWvwNA",vertical:true,thumbs:true,items:[
+      {n:1,title:"EP.1 Why is 6 afraid of 7?（7 ATE 9）",thumb:"images/jokes/ep01.jpg",video:"rlDbDQ3kYBQ",
        lesson:`<h3>📚 諧音小教室</h3>
          <p><b class="b">eight</b> /et/ 數字八 ＝ <b class="o">ate</b> /et/ 吃（eat 的過去式）</p>
          <p>seven <b class="b">eight</b> nine → seven <b class="o">ATE</b> nine：七把九吃掉了！</p>
          <p>✏️ I <b class="o">ate</b> <b class="b">eight</b> cakes. 我吃了八塊蛋糕。🍰</p>`,
        quiz:{q:"I ____ eight cakes.",opts:["(A) eight","(B) ate"],ans:1,why:"ate 是 eat 的過去式：I ate eight cakes. 我吃了八塊蛋糕。"}},
-      {n:2,title:"EP.2 What do you call a bear with no ears?（A B!）",video:"cUrT7GHt3gc",
+      {n:2,title:"EP.2 What do you call a bear with no ears?（A B!）",thumb:"images/jokes/ep02.jpg",video:"cUrT7GHt3gc",
        lesson:`<h3>📚 拆字小教室</h3>
          <p><b class="b">bear</b> 熊 ＝ b ＋ <b class="o">ear</b> 耳朵</p>
          <p><b class="b">bear</b> － <b class="o">ear</b> ＝ <b>B</b>：只剩字母 B！</p>
          <p>💡 <b class="b">call</b> 也可以當「叫做」：What do you <b class="b">call</b> it? 你會叫它什麼？</p>`,
        quiz:{q:"B + ear = ?",opts:["(A) bee 蜜蜂","(B) bear 熊"],ans:1,why:"b + ear 拼起來就是 bear 熊！"}},
-      {n:3,title:"EP.3 Why is the letter E so lazy?（always in BED!）",video:"aBF13QfQk5I",
+      {n:3,title:"EP.3 Why is the letter E so lazy?（always in BED!）",thumb:"images/jokes/ep03.jpg",video:"aBF13QfQk5I",
        lesson:`<h3>📚 字母小教室</h3>
          <p><b class="b">bed</b> 床 ＝ b-<b class="o">e</b>-d：字母 <b class="o">E</b> 就躺在正中間！</p>
          <p><b class="b">lazy</b> 懶惰的｜<b class="b">always</b> 總是｜<b class="b">letter</b> 信／字母</p>
@@ -230,9 +240,15 @@
   document.title=CAT.zh+' ｜ 全民英語補習班';
 
   const qlist=document.getElementById('qlist');
+  if(CAT.thumbs) qlist.classList.add('thumbs');
   CAT.items.forEach(q=>{
     const b=document.createElement('button');
     b.className='qrow';
+    if(CAT.thumbs){
+      b.classList.add('tcard');
+      const img=q.thumb||`https://i.ytimg.com/vi/${q.video}/hqdefault.jpg`;
+      b.innerHTML=`<span class="tthumb"><img src="${img}" alt="" loading="lazy"><span class="tep">EP.${q.n}</span>${q.video?'<span class="tplay"></span>':'<span class="tsoon">影片即將上架</span>'}</span><span class="qt">${q.title.replace(/^EP\.\d+\s*/,'')}</span>`;
+    } else
     b.innerHTML=`<span class="num">${q.n}</span><span class="qt">${q.title}</span>`;
     b.onclick=()=>openQ(q.n);
     qlist.appendChild(b);
