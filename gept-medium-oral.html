@@ -65,7 +65,23 @@
   footer{background:var(--ink);color:#cdd7ea;padding:36px 24px;text-align:center}
   footer p{font-size:13px;opacity:.8}
 
-  @media(max-width:760px){.qlist{grid-template-columns:1fr}}
+  .qlist.thumbs{grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:18px}
+  .qrow.tcard{flex-direction:column;align-items:stretch;gap:0;padding:0;overflow:hidden;border-radius:18px}
+  .qrow.tcard::after{display:none}
+  .tcard .tthumb{position:relative;aspect-ratio:9/16;background:#fff3cd}
+  .tcard .tthumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .tcard .tthumb .tplay{position:absolute;right:10px;bottom:10px;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.92);box-shadow:0 8px 20px rgba(0,0,0,.25);display:grid;place-items:center}
+  .tcard .tthumb .tplay::after{content:"";border-left:18px solid var(--red);border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:4px}
+  .tcard .tthumb .tep{position:absolute;left:10px;top:10px;background:#6e34d6;color:#fff;font-weight:900;font-size:13px;padding:3px 10px;border-radius:999px}
+  .tcard .tthumb .tsoon{position:absolute;left:0;right:0;bottom:0;background:rgba(22,35,61,.75);color:#fff;font-size:13px;font-weight:800;text-align:center;padding:6px}
+  .tcard .qt{padding:12px 14px 14px;font-size:14.5px;line-height:1.45}
+  .qlist.thumbs.h{grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+  .tcard .tthumb.h{aspect-ratio:16/9;background:#e3ecfa}
+  .tcard .tthumb .tnum{position:absolute;left:10px;top:10px;background:rgba(31,86,224,.92);color:#fff;font-weight:900;font-size:13px;padding:3px 10px;border-radius:999px}
+  .tcard .tthumb .tnone{position:absolute;inset:0;display:grid;place-items:center;font-size:42px;background:linear-gradient(140deg,#1f56e0,#5b9bff)}
+
+  @media(max-width:760px){.qlist{grid-template-columns:1fr}.qlist.thumbs.h{grid-template-columns:1fr 1fr;gap:12px}}
+  @media(max-width:460px){.qlist.thumbs.h{grid-template-columns:1fr}}
 
   [data-en]{display:none}
   body.en [data-zh]{display:none}
@@ -189,10 +205,12 @@
   ];
 
   const qlist=document.getElementById('qlist');
+  qlist.classList.add('thumbs','h');
   DATA.forEach(q=>{
     const b=document.createElement('button');
-    b.className='qrow'+(q.answers?' has':'');
-    b.innerHTML=`<span class="num">${q.n}</span><span class="qt">${q.title}</span>`;
+    b.className='qrow tcard';
+    const img=q.video?`https://i.ytimg.com/vi/${q.video}/mqdefault.jpg`:'';
+    b.innerHTML=`<span class="tthumb h">${img?`<img src="${img}" alt="" loading="lazy">`:'<span class="tnone">🗣️</span>'}<span class="tnum">${q.n}</span><span class="tplay"></span></span><span class="qt">${q.title.replace(/^全民英語補習班\s*-\s*\d+\.\s*/,'')}</span>`;
     b.onclick=()=>openQ(q.n);
     qlist.appendChild(b);
   });

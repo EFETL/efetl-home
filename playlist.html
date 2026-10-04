@@ -79,7 +79,12 @@
   .tcard .tthumb .tep{position:absolute;left:10px;top:10px;background:#6e34d6;color:#fff;font-weight:900;font-size:13px;padding:3px 10px;border-radius:999px}
   .tcard .tthumb .tsoon{position:absolute;left:0;right:0;bottom:0;background:rgba(22,35,61,.75);color:#fff;font-size:13px;font-weight:800;text-align:center;padding:6px}
   .tcard .qt{padding:12px 14px 14px;font-size:14.5px;line-height:1.45}
-  @media(max-width:760px){.qlist{grid-template-columns:1fr}.qlist.thumbs{grid-template-columns:1fr 1fr;gap:12px}}
+  .qlist.thumbs.h{grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+  .tcard .tthumb.h{aspect-ratio:16/9;background:#e3ecfa}
+  .tcard .tthumb .tnum{position:absolute;left:10px;top:10px;background:rgba(31,86,224,.92);color:#fff;font-weight:900;font-size:13px;padding:3px 10px;border-radius:999px}
+  .tcard .tthumb .tnone{position:absolute;inset:0;display:grid;place-items:center;font-size:42px;background:linear-gradient(140deg,#1f56e0,#5b9bff)}
+
+  @media(max-width:760px){.qlist{grid-template-columns:1fr}.qlist.thumbs{grid-template-columns:1fr 1fr;gap:12px}.qlist.thumbs.h{grid-template-columns:1fr}}
   [data-en]{display:none}
   body.en [data-zh]{display:none}
   body.en [data-en]{display:revert}
@@ -240,16 +245,13 @@
   document.title=CAT.zh+' ｜ 全民英語補習班';
 
   const qlist=document.getElementById('qlist');
-  if(CAT.thumbs) qlist.classList.add('thumbs');
+  qlist.classList.add('thumbs'); if(!CAT.vertical) qlist.classList.add('h');
   CAT.items.forEach(q=>{
     const b=document.createElement('button');
-    b.className='qrow';
-    if(CAT.thumbs){
-      b.classList.add('tcard');
-      const img=q.thumb||`https://i.ytimg.com/vi/${q.video}/hqdefault.jpg`;
-      b.innerHTML=`<span class="tthumb"><img src="${img}" alt="" loading="lazy"><span class="tep">EP.${q.n}</span>${q.video?'<span class="tplay"></span>':'<span class="tsoon">影片即將上架</span>'}</span><span class="qt">${q.title.replace(/^EP\.\d+\s*/,'')}</span>`;
-    } else
-    b.innerHTML=`<span class="num">${q.n}</span><span class="qt">${q.title}</span>`;
+    b.className='qrow tcard';
+    const img=q.thumb||(q.video?`https://i.ytimg.com/vi/${q.video}/${CAT.vertical?'hqdefault':'mqdefault'}.jpg`:'');
+    const tag=CAT.vertical?`<span class="tep">EP.${q.n}</span>`:`<span class="tnum">${q.n}</span>`;
+    b.innerHTML=`<span class="tthumb${CAT.vertical?'':' h'}">${img?`<img src="${img}" alt="" loading="lazy">`:'<span class="tnone">🎬</span>'}${tag}${q.video?'<span class="tplay"></span>':'<span class="tsoon">影片即將上架</span>'}</span><span class="qt">${q.title.replace(/^EP\.\d+\s*/,'').replace(/^全民英語補習班\s*-\s*/,'')}</span>`;
     b.onclick=()=>openQ(q.n);
     qlist.appendChild(b);
   });
