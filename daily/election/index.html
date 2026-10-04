@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Election Words 選舉雙語字彙</title>
+<style>
+:root{--blue:#1f6f8b;--blue-d:#14485c;--sand:#f6efe3;--sand-d:#e6d8bf;--ink:#22333b;--ok:#2e8b57;--bad:#c8553d;--card:#fff}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,"PingFang TC","Noto Sans TC","Helvetica Neue",sans-serif;background:var(--sand);color:var(--ink);font-size:18px;line-height:1.6}
+nav{position:sticky;top:0;z-index:5;background:#fffd;backdrop-filter:blur(8px);display:flex;justify-content:space-between;align-items:center;padding:12px 5vw;border-bottom:1px solid var(--sand-d)}
+nav b{color:var(--blue-d)}nav a{margin-left:18px;color:var(--blue);text-decoration:none;font-weight:600}
+.hero{position:relative;height:min(60vh,460px);background:#000 url(img/hero.jpg) center/cover}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 30%,#0a2a38cc)}
+.hero div{position:absolute;z-index:1;left:5vw;right:5vw;bottom:36px;color:#fff}
+.hero h1{margin:0;font-size:clamp(30px,6vw,56px);line-height:1.15}
+.hero p{margin:8px 0 0;font-size:clamp(18px,2.6vw,24px)}
+main{max-width:1100px;margin:0 auto;padding:56px 5vw 80px}
+h2{font-size:30px;color:var(--blue-d);margin:64px 0 8px}
+.sub{color:#5b6b73;margin:0 0 24px}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin:24px 0 32px}
+.tab{border:2px solid var(--blue);background:#fff;color:var(--blue);padding:10px 22px;border-radius:999px;font-size:18px;font-weight:700;cursor:pointer}
+.tab.on{background:var(--blue);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:24px}
+.card{background:var(--card);border-radius:20px;box-shadow:0 4px 16px #0000001a;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;min-height:250px;transition:transform .15s}
+.card:hover{transform:translateY(-3px)}
+.card img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.card .body{padding:16px 18px 18px;flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center}
+.en{font-size:24px;font-weight:800;color:var(--blue-d)}
+.zh{font-size:22px;font-weight:700}
+.ex{font-size:16px;color:#5b6b73;margin-top:8px}
+.card .zh,.card .ex{display:none}.card.flip .zh,.card.flip .ex{display:block}
+.spk{align-self:center;display:inline-block;margin-top:10px;border:0;background:var(--sand);border-radius:999px;padding:6px 16px;font-size:16px;cursor:pointer}
+.quiz{background:#fff;border-radius:24px;padding:32px;box-shadow:0 4px 16px #0000001a}
+.q{font-size:32px;font-weight:800;color:var(--blue-d);margin:0 0 20px}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.opt{border:2px solid var(--sand-d);background:var(--sand);border-radius:14px;padding:14px;font-size:20px;cursor:pointer}
+.opt.ok{background:#d9f2e3;border-color:var(--ok)}.opt.bad{background:#fbe0da;border-color:var(--bad)}
+.btn{background:var(--blue);color:#fff;border:0;border-radius:999px;padding:12px 28px;font-size:18px;font-weight:700;cursor:pointer;margin-top:20px}
+.tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.tips div{background:#fff;border-radius:18px;padding:20px 22px;box-shadow:0 4px 16px #0000001a}
+footer{background:var(--blue-d);color:#d9eaf0;text-align:center;padding:36px 5vw;font-size:16px}
+</style>
+</head>
+<body>
+<nav><b>🗳️ Election Words</b><span><a href="../">← 每日一字</a><a href="#cards">字卡</a><a href="#quiz">小測驗</a><a href="#tips">老師小提醒</a></span></nav>
+<header class="hero"><div><h1>Election Words<br>選舉雙語字彙</h1><p>From polling station to democracy 從投票所到民主</p></div></header>
+<main>
+<h2 id="cards">字卡 Flashcards</h2>
+<p class="sub">點卡片翻面看中文與例句,按 🔊 聽發音。Tap a card to flip it.</p>
+<div class="tabs" id="tabs"></div>
+<div class="grid" id="grid"></div>
+
+<h2 id="quiz">小測驗 Quick Quiz</h2>
+<p class="sub">看英文選中文,每回 10 題。</p>
+<div class="quiz" id="quiz-box"></div>
+
+<h2 id="tips">老師小提醒 Teacher Notes</h2>
+<div class="tips">
+<div><b>容易混淆</b><br>vote(動作)vs. ballot(那張票);elect(選出)vs. election(選舉)。</div>
+<div><b>常見搭配</b><br>cast a vote、run for mayor、win / lose the election、hold an election。</div>
+<div><b>立場中立</b><br>課堂用詞以制度與公民素養為主,不涉及特定政黨或候選人;高年級可用「假訊息辨識」帶討論。</div>
+</div>
+</main>
+<footer>2026 年地方公職人員選舉(九合一)公民 × 英文主題 · 插圖:Canva AI</footer>
+<script>
+const DATA={
+ "國小 Elementary":[
+  ["election","選舉","The election is on Saturday.",""],
+  ["vote","投票","Adults can vote.","voter"],
+  ["voter","選民","Every voter has one vote.","voter"],
+  ["candidate","候選人","The candidate shook hands with people.","candidate"],
+  ["ballot","選票","Fold the ballot after you mark it.","ballotbox"],
+  ["ballot box","投票箱","Put your ballot in the ballot box.","ballotbox"],
+  ["polling station","投票所","The polling station is at our school.","polling"],
+  ["stamp","圈選章","Use the stamp to choose one candidate.",""],
+  ["mayor","市長","The mayor leads the city.","mayor"],
+  ["result","結果","The results come out at night.","counting"],
+  ["poster","海報","There are posters on the street.","poster"],
+  ["flag","旗幟","The flags are colorful.","poster"]],
+ "國中 Junior High":[
+  ["democracy","民主","Taiwan is a democracy.","democracy"],
+  ["citizen","公民","Every citizen has rights.",""],
+  ["campaign","競選活動","The campaign lasts a few weeks.","candidate"],
+  ["political party","政黨","Each party has its own policies.",""],
+  ["councilor","議員","The councilor listens to local voices.",""],
+  ["village chief","村里長","The village chief helps neighbors.",""],
+  ["term of office","任期","A term of office is four years.",""],
+  ["incumbent","現任者","The incumbent wants to win again.",""],
+  ["opinion poll","民調","The poll shows a close race.",""],
+  ["turnout","投票率","Turnout was high this year.",""],
+  ["majority","多數","He won by a majority of votes.",""],
+  ["eligible voter","有投票權者","You must be 18 to be an eligible voter.",""],
+  ["rally","造勢大會","Thousands joined the rally.","rally"],
+  ["slogan","競選口號","The slogan is short and catchy.",""],
+  ["policy","政策","Education is an important policy.",""],
+  ["debate","辯論","The candidates had a TV debate.","debate"],
+  ["vote counting","開票","Vote counting starts at 4 p.m.","counting"],
+  ["Central Election Commission","中央選舉委員會(中選會)","The CEC runs national elections.",""]],
+ "高中 Senior High":[
+  ["local elections","地方選舉(九合一)","The nine-in-one local elections are in 2026.",""],
+  ["electoral district","選區","Each electoral district elects one councilor.",""],
+  ["proportional representation","政黨比例代表制","Seats are shared by party votes.",""],
+  ["nomination","提名","The party announced its nomination.",""],
+  ["primary election","初選","The primary election chose the candidate.",""],
+  ["swing voter","游離選民","Swing voters can decide the race.",""],
+  ["voter apathy","選民冷漠","Voter apathy lowers turnout.",""],
+  ["landslide victory","壓倒性勝利","She won in a landslide victory.",""],
+  ["concede","認輸、承認落選","He conceded and thanked his team.",""],
+  ["recall","罷免","A recall vote can remove an official.",""],
+  ["referendum","公投","The referendum asks one yes-or-no question.",""],
+  ["mandate","民意授權","The winner claimed a clear mandate.",""],
+  ["gerrymandering","不當劃分選區","Gerrymandering draws unfair district lines.",""],
+  ["disinformation","假訊息(蓄意)","Disinformation spreads fast online.","factcheck"],
+  ["fact-check","事實查核","Always fact-check before you share.","factcheck"],
+  ["vote buying","賄選","Vote buying is illegal.",""],
+  ["negative campaigning","負面選戰","Negative campaigning attacks the opponent.",""],
+  ["electorate","全體選民","The electorate wants lower prices.",""],
+  ["civic engagement","公民參與","Civic engagement builds a strong community.","democracy"],
+  ["secret ballot","秘密投票","A secret ballot protects your choice.","ballotbox"],
+  ["accountability","課責","Leaders need accountability.",""],
+  ["transparency","透明","Transparency builds trust.",""]]
+};
+const levels=Object.keys(DATA);let cur=levels[0];
+const $=s=>document.querySelector(s);
+const slug=t=>t.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+let au=null;
+function speak(t,kind="w"){try{if(au)au.pause();au=new Audio(`audio/${kind}-${slug(t)}.mp3`);au.play()}catch(e){}}
+function render(){
+ $("#tabs").innerHTML=levels.map(l=>`<button class="tab ${l==cur?"on":""}" data-l="${l}">${l}(${DATA[l].length})</button>`).join("");
+ $("#grid").innerHTML=DATA[cur].map((w,i)=>`<div class="card" data-i="${i}">${w[3]?`<img src="img/${w[3]}.jpg" alt="${w[0]}" loading="lazy">`:""}<div class="body"><div class="en">${w[0]}</div><div class="zh">${w[1]}</div><div class="ex">${w[2]}</div><button class="spk" data-s="${w[0]}">🔊 單字</button> <button class="spk" data-s="${w[0]}" data-k="s">🔊 例句</button></div></div>`).join("");
+ newQuiz();
+}
+$("#tabs").onclick=e=>{const l=e.target.dataset.l;if(l){cur=l;render()}};
+$("#grid").onclick=e=>{const b=e.target.closest(".spk");if(b){e.stopPropagation();speak(b.dataset.s,b.dataset.k||"w");return}const c=e.target.closest(".card");if(c)c.classList.toggle("flip")};
+let qs=[],qi=0,score=0;
+const shuf=a=>a.map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
+function newQuiz(){qs=shuf(DATA[cur]).slice(0,10);qi=0;score=0;showQ()}
+function showQ(){
+ const box=$("#quiz-box");
+ if(qi>=qs.length){box.innerHTML=`<p class="q">得分 Score: ${score} / ${qs.length} 🎉</p><button class="btn" id="again">再來一回 Again</button>`;$("#again").onclick=newQuiz;return}
+ const w=qs[qi];const wrong=shuf(DATA[cur].filter(x=>x!==w)).slice(0,3);
+ const opts=shuf([w,...wrong]);
+ box.innerHTML=`<p class="sub">${cur} · ${qi+1}/${qs.length}</p><p class="q">${w[0]} <button class="spk" id="qs">🔊</button></p><div class="opts">${opts.map(o=>`<button class="opt" data-ok="${o===w}">${o[1]}</button>`).join("")}</div><div id="fb"></div>`;
+ $("#qs").onclick=()=>speak(w[0]);
+ box.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
+  if(box.dataset.done==qi)return;box.dataset.done=qi;
+  const ok=b.dataset.ok=="true";if(ok){score++;b.classList.add("ok")}else{b.classList.add("bad");box.querySelector('[data-ok="true"]').classList.add("ok")}
+  $("#fb").innerHTML=`<p class="sub">${w[2]}</p><button class="btn" id="nx">下一題 Next</button>`;$("#nx").onclick=()=>{qi++;showQ()};
+ });
+}
+render();
+</script>
+</body>
+</html>
