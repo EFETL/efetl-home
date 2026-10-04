@@ -51,6 +51,21 @@
   .player{aspect-ratio:16/9;width:100%;border-radius:16px;overflow:hidden;background:#000;margin:22px 0 8px;box-shadow:var(--shadow)}
   .player iframe{width:100%;height:100%;border:0;display:block}
   .player-note{font-size:13px;color:var(--ink-soft)}
+  .player iframe[hidden]{display:none}
+  .player.vertical{aspect-ratio:9/16;max-width:360px;margin:22px auto 8px}
+  .player.pending{display:grid;place-items:center;color:#fff;font-weight:800;text-align:center;padding:20px;background:linear-gradient(160deg,#38bdf8,#7c5cff)}
+  .lesson{max-width:620px;margin:22px auto 0;background:#fffcf0;border:2px solid #d9ccff;border-radius:18px;padding:20px 22px}
+  .lesson h3{font-size:17px;font-weight:900;color:#6e34d6;margin-bottom:10px}
+  .lesson p{font-size:16px;margin:6px 0}
+  .lesson b.o{color:#eb6e1e}.lesson b.b{color:var(--blue)}
+  .quiz{max-width:620px;margin:16px auto 0;background:#fff;border:2px solid var(--line);border-radius:18px;padding:20px 22px;text-align:center}
+  .quiz h3{font-size:17px;font-weight:900;color:#6e34d6;margin-bottom:8px}
+  .quiz .qq{font-size:22px;font-weight:900;margin-bottom:14px}
+  .quiz .opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .quiz button{font-family:inherit;font-size:20px;font-weight:800;padding:14px;border-radius:14px;border:2px solid #d9ccff;background:#faf8ff;cursor:pointer;color:var(--ink)}
+  .quiz button.ok{background:#e6f9ee;border-color:#1eaa5a;color:#167a42}
+  .quiz button.no{background:#ffecee;border-color:var(--red);color:#c0303d}
+  .quiz .fb{margin-top:12px;font-weight:800;min-height:1.6em}
 
   footer{background:var(--ink);color:#cdd7ea;padding:36px 24px;text-align:center}
   footer p{font-size:13px;opacity:.8}
@@ -86,7 +101,9 @@
     <button class="back" onclick="showList()"><span data-zh>← 回影片清單</span><span data-en>← Back to list</span></button>
     <div class="crumb"><a href="videos.html"><span data-zh>影音教學</span><span data-en>Videos</span></a> › <span id="cZh2"></span></div>
     <h2><span class="qno" id="dNo"></span> <span id="dTitle"></span></h2>
-    <div class="player"><iframe referrerpolicy="strict-origin-when-cross-origin" id="dPlayer" src="" title="影片" allow="accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div>
+    <div class="player" id="dBox"><iframe referrerpolicy="strict-origin-when-cross-origin" id="dPlayer" src="" title="影片" allow="accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe><span id="dPending" hidden><span data-zh>🐧 影片即將上架，敬請期待！</span><span data-en>🐧 Coming soon!</span></span></div>
+    <div class="lesson" id="dLesson" hidden></div>
+    <div class="quiz" id="dQuiz" hidden></div>
     <p class="player-note"><span data-zh>※ 影片來自全民英語 YouTube 官方頻道。</span><span data-en>※ From our official YouTube channel.</span></p>
   </div>
 </section>
@@ -167,6 +184,20 @@
       {n:9,title:"全民英語補習班歡慶20週年",video:"l8awfw8XmYM"},
       {n:10,title:"全民20週年-快樂天堂",video:"uutRFXGQX4I"}
     ]},
+    jokes:{zh:"全民企鵝冷笑話學英文",en:"Penguin Puns English",pl:"PLNR_pfJWvwNA",vertical:true,items:[
+      {n:1,title:"EP.1 Why is 6 afraid of 7?（7 ATE 9）",video:"ZkHQ1AGBPiU",
+       lesson:`<h3>📚 諧音小教室</h3>
+         <p><b class="b">eight</b> /et/ 數字八 ＝ <b class="o">ate</b> /et/ 吃（eat 的過去式）</p>
+         <p>seven <b class="b">eight</b> nine → seven <b class="o">ATE</b> nine：七把九吃掉了！</p>
+         <p>✏️ I <b class="o">ate</b> <b class="b">eight</b> cakes. 我吃了八塊蛋糕。🍰</p>`,
+       quiz:{q:"I ____ eight cakes.",opts:["(A) eight","(B) ate"],ans:1,why:"ate 是 eat 的過去式：I ate eight cakes. 我吃了八塊蛋糕。"}},
+      {n:2,title:"EP.2 What do you call a bear with no ears?（A B!）",video:"oODmPDQIG7Q",
+       lesson:`<h3>📚 拆字小教室</h3>
+         <p><b class="b">bear</b> 熊 ＝ b ＋ <b class="o">ear</b> 耳朵</p>
+         <p><b class="b">bear</b> － <b class="o">ear</b> ＝ <b>B</b>：只剩字母 B！</p>
+         <p>💡 <b class="b">call</b> 也可以當「叫做」：What do you <b class="b">call</b> it? 你會叫它什麼？</p>`,
+       quiz:{q:"B + ear = ?",opts:["(A) bee 蜜蜂","(B) bear 熊"],ans:1,why:"b + ear 拼起來就是 bear 熊！"}}
+    ]},
     study:{zh:"如何提高學習效率",en:"Study Smarter",pl:"PLEEUvULVN3pwNZsfK4kjxwVQj8XOAoAhh",items:[
       {n:1,title:"如何提高學習效率-開場",video:"z6fLQYBNqyE"},
       {n:2,title:"如何提高學習效率--對象",video:"H0QuwOxvIkM"},
@@ -205,7 +236,22 @@
     const q=CAT.items.find(x=>x.n===n);
     document.getElementById('dNo').textContent=q.n+'.';
     document.getElementById('dTitle').textContent=q.title;
-    document.getElementById('dPlayer').src=`https://www.youtube.com/embed/${q.video}?rel=0&autoplay=1`;
+    const box=document.getElementById('dBox'),pl=document.getElementById('dPlayer'),pd=document.getElementById('dPending'),ls=document.getElementById('dLesson');
+    box.classList.toggle('vertical',!!CAT.vertical);
+    box.classList.toggle('pending',!q.video);
+    pl.hidden=!q.video; pd.hidden=!!q.video;
+    pl.src=q.video?`https://www.youtube.com/embed/${q.video}?rel=0&autoplay=1`:'';
+    ls.hidden=!q.lesson; ls.innerHTML=q.lesson||'';
+    const qz=document.getElementById('dQuiz'); qz.hidden=!q.quiz;
+    if(q.quiz){
+      qz.innerHTML=`<h3>🧠 小測驗 Quiz</h3><div class="qq">${q.quiz.q}</div><div class="opts">${q.quiz.opts.map((o,i)=>`<button data-i="${i}">${o}</button>`).join('')}</div><div class="fb"></div>`;
+      qz.querySelectorAll('button').forEach(b=>b.onclick=()=>{
+        const ok=+b.dataset.i===q.quiz.ans;
+        qz.querySelectorAll('button').forEach(x=>x.classList.remove('ok','no'));
+        b.classList.add(ok?'ok':'no');
+        qz.querySelector('.fb').textContent=ok?'✅ 答對了！'+q.quiz.why:'❌ 再想想看！';
+      });
+    }
     document.getElementById('head').classList.add('hide');
     qlist.classList.add('hide');
     document.getElementById('detail').classList.add('show');
